@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Osun Beauty &amp; Boutique | Elegance. Confidence. Osun.</title>
+  <meta name="description" content="Osun Beauty &amp; Boutique — Fashion &amp; beauty curated for elegance and confidence. Shop dresses, blouses, skincare and more." />
+  <link rel="canonical" href="https://osun.example.com/" />
+  <meta property="og:title" content="Osun Beauty &amp; Boutique" />
+  <meta property="og:description" content="Elegance. Confidence. Osun." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/images/hero.jpg" />
+  <meta property="og:url" content="https://osun.example.com/" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter','ui-sans-serif','system-ui'] },
+          colors: {
+            brand: { red: '#E11D48', yellow: '#F59E0B' },
+            osun: { pink: '#f472b6', dark: '#111827', soft: '#f9fafb' }
+          },
+          boxShadow: {
+            elev: '0 10px 30px -12px rgba(0,0,0,0.25)'
+          }
+        }
+      }
+    };
+  </script>
+
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <link rel="stylesheet" href="assets/css/site.css" />
+  <style>
+    .card { box-shadow: 0 8px 24px rgba(0,0,0,.08); }
+  </style>
+</head>
+
+<body class="bg-white text-gray-800">
+  <div class="entry-overlay" aria-hidden="true">
+    <div class="entry-logo text-2xl md:text-3xl">
+      <span class="entry-dot"></span>
+      <span>Osun Beauty &amp; Boutique</span>
+    </div>
+  </div>
+
+  <div class="w-full bg-gradient-to-r from-pink-50 via-amber-50 to-pink-50 text-gray-800 text-sm py-2 px-4 text-center">
+    <span data-i18n="bar.free" class="font-semibold">Free shipping</span> <span>MYR 300+</span> ·
+    <span data-i18n="bar.return">7-day returns</span>
+  </div>
+
+  <header class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between" data-aos="fade-down">
+      <a href="index.html" class="flex items-center gap-2" aria-label="Osun home">
+        <span class="h-8 w-8 rounded-full bg-brand.red inline-block shadow-elev"></span>
+        <span class="text-xl sm:text-2xl font-extrabold tracking-tight text-brand.red">Osun Beauty &amp; Boutique</span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-6" aria-label="Primary">
+        <a href="#shop" class="hover:text-brand.yellow transition" data-i18n="nav.shop">Shop</a>
+        <a href="categories.html" class="hover:text-brand.yellow transition" data-i18n="nav.categories">Categories</a>
+        <a href="#beauty" class="hover:text-brand.yellow transition" data-i18n="nav.beauty">Beauty</a>
+        <a href="about.html" class="hover:text-brand.yellow transition" data-i18n="nav.about">About</a>
+        <a href="admin.html" class="hover:text-brand.yellow transition" data-i18n="nav.admin">Admin</a>
+      </nav>
+
+      <div class="flex items-center gap-2">
+        <button id="lang-zh" class="px-3 py-1 rounded-full border hover:shadow-elev hover:-translate-y-0.5 transition text-sm" aria-label="切換中文">中文</button>
+        <button id="lang-en" class="px-3 py-1 rounded-full border hover:shadow-elev hover:-translate-y-0.5 transition text-sm" aria-label="Switch to English">EN</button>
+
+        <button id="cart-open" class="relative ml-1 p-2 rounded-full border hover:shadow-elev transition" aria-label="Open cart">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          <span id="cart-count" class="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 text-xs rounded-full bg-brand.red text-white grid place-items-center">0</span>
+        </button>
+
+        <button id="menu-toggle" class="md:hidden p-2 rounded-lg border hover:shadow-elev" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
+          <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </div>
+    </div>
+
+    <nav id="mobile-menu" class="md:hidden hidden border-t bg-white" aria-label="Mobile">
+      <div class="px-4 py-3 space-y-2">
+        <a href="#shop" class="block py-2" data-i18n="nav.shop">Shop</a>
+        <a href="categories.html" class="block py-2" data-i18n="nav.categories">Categories</a>
+        <a href="#beauty" class="block py-2" data-i18n="nav.beauty">Beauty</a>
+        <a href="about.html" class="block py-2" data-i18n="nav.about">About</a>
+        <a href="admin.html" class="block py-2" data-i18n="nav.admin">Admin</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="relative" aria-labelledby="hero-title">
+    <img src="assets/images/hero.jpg" alt="Osun Boutique hero" class="w-full h-[62vh] md:h-[76vh] object-cover" data-content-image="hero.image" id="hero-image" />
+    <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/20 to-transparent" aria-hidden="true"></div>
+    <div class="absolute inset-0 flex items-center justify-center text-center px-6">
+      <div data-aos="fade-up" data-aos-delay="300" class="relative z-50">
+        <h1 id="hero-title" class="text-white text-4xl md:text-6xl font-extrabold drop-shadow mb-4">
+          <span data-i18n="hero.title" data-content-key="hero.title">Elegance. Confidence. Osun.</span>
+        </h1>
+        <p class="text-white/90 md:text-lg mb-8 max-w-2xl mx-auto" data-i18n="hero.subtitle" data-content-key="hero.subtitle">Discover your radiance where fashion meets inner glow.</p>
+        <div class="flex justify-center gap-4">
+          <a href="#shop" class="shine-btn inline-flex items-center rounded-full bg-brand.red px-8 py-3 font-semibold text-white hover:bg-rose-600 transition" data-i18n="hero.cta1" data-content-key="hero.primaryCta" data-content-link="hero.primaryLink">Shop Now</a>
+          <a href="about.html" class="shine-btn inline-flex items-center rounded-full border border-white/80 bg-white/85 text-gray-900 px-8 py-3 font-semibold shadow-sm hover:bg-white hover:shadow-md transition" data-i18n="hero.cta2" data-content-key="hero.secondaryCta" data-content-link="hero.secondaryLink">Discover Our Story</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="categories" class="max-w-7xl mx-auto px-4 sm:px-6 py-16" aria-labelledby="categories-title">
+    <div class="flex items-end justify-between mb-8">
+      <h2 id="categories-title" class="text-3xl font-bold" data-aos="fade-right" data-i18n="cat.title">Shop by Category</h2>
+      <a href="categories.html" class="text-brand.red hover:underline" data-aos="fade-left" data-i18n="cat.viewall">View all</a>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+      <a href="#shop" class="group relative rounded-2xl overflow-hidden shadow hover:shadow-elev transform transition hover:-translate-y-1" data-aos="zoom-in">
+        <img src="assets/images/product1.jpg" alt="Dresses" class="h-64 w-full object-cover group-hover:scale-105 transition" />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" aria-hidden="true"></div>
+        <div class="absolute bottom-4 left-4 text-white font-semibold text-lg" data-i18n="cat.dresses">Dresses</div>
+      </a>
+      <a href="categories.html" class="group relative rounded-2xl overflow-hidden shadow hover:shadow-elev transform transition hover:-translate-y-1" data-aos="zoom-in" data-aos-delay="100">
+        <img src="assets/images/dress_pink.jpg" alt="Tops &amp; Blouses" class="h-64 w-full object-cover group-hover:scale-105 transition" />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" aria-hidden="true"></div>
+        <div class="absolute bottom-4 left-4 text-white font-semibold text-lg" data-i18n="cat.tops">Tops &amp; Blouses</div>
+      </a>
+      <a href="#beauty" class="group relative rounded-2xl overflow-hidden shadow hover:shadow-elev transform transition hover:-translate-y-1" data-aos="zoom-in" data-aos-delay="200">
+        <img src="assets/images/model1.png" alt="Beauty" class="h-64 w-full object-cover group-hover:scale-105 transition" />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" aria-hidden="true"></div>
+        <div class="absolute bottom-4 left-4 text-white font-semibold text-lg" data-i18n="cat.beauty">Beauty</div>
+      </a>
+    </div>
+  </section>
+
+  <section id="shop" class="bg-gray-50 border-y" aria-labelledby="shop-title">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-16">
+      <h2 id="shop-title" class="text-3xl font-bold text-center" data-aos="fade-up" data-i18n="feat.title">Featured Collections</h2>
+      <p class="text-center text-gray-600 mt-2" data-aos="fade-up" data-aos-delay="100" data-i18n="feat.subtitle">Hand-picked styles &amp; glow kits.</p>
+
+      <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <article class="rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-elev transition transform hover:-translate-y-1" data-aos="zoom-in">
+          <div class="relative">
+            <img src="assets/images/product1.jpg" alt="Floral Elegance Dress" class="w-full h-96 object-cover" />
+            <span class="absolute left-3 top-3 bg-brand.red text-white text-xs font-semibold px-2 py-1 rounded-full" data-i18n="tag.bestseller">Best Seller</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold"><span data-i18n="prod1.name">Floral Elegance Dress</span></h3>
+            <p class="text-sm text-gray-500" data-i18n="prod1.desc">Sizes XS–XL · 3 colors</p>
+            <div class="mt-3 flex items-center justify-between">
+              <span class="text-brand.red font-bold">MYR 279</span>
+              <button class="shine-btn rounded-full border px-4 py-2 text-sm hover:bg-gray-50 add-to-cart" data-product-id="p1" data-i18n="btn.add">Add to Cart</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-elev transition transform hover:-translate-y-1" data-aos="zoom-in" data-aos-delay="100">
+          <div class="relative">
+            <img src="assets/images/dress_pink.jpg" alt="Summer Vibe Blouse" class="w-full h-96 object-cover" />
+            <span class="absolute left-3 top-3 bg-amber-500 text-white text-xs font-semibold px-2 py-1 rounded-full" data-i18n="tag.new">New</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold"><span data-i18n="prod2.name">Summer Vibe Blouse</span></h3>
+            <p class="text-sm text-gray-500" data-i18n="prod2.desc">Soft-touch rayon</p>
+            <div class="mt-3 flex items-center justify-between">
+              <span class="text-brand.red font-bold">MYR 169</span>
+              <button class="shine-btn rounded-full border px-4 py-2 text-sm hover:bg-gray-50 add-to-cart" data-product-id="p2" data-i18n="btn.add">Add to Cart</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-elev transition transform hover:-translate-y-1" data-aos="zoom-in" data-aos-delay="200">
+          <div class="relative">
+            <img src="assets/images/model1.png" alt="Glow Beauty Set" class="w-full h-96 object-cover" />
+            <span class="absolute left-3 top-3 bg-emerald-500 text-white text-xs font-semibold px-2 py-1 rounded-full" data-i18n="tag.bundle">Bundle</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold"><span data-i18n="prod3.name">Glow Beauty Set</span></h3>
+            <p class="text-sm text-gray-500" data-i18n="prod3.desc">Clean, cruelty-free</p>
+            <div class="mt-3 flex items-center justify-between">
+              <span class="text-brand.red font-bold">MYR 329</span>
+              <button class="shine-btn rounded-full border px-4 py-2 text-sm hover:bg-gray-50 add-to-cart" data-product-id="p3" data-i18n="btn.add">Add to Cart</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="beauty" class="max-w-7xl mx-auto px-4 sm:px-6 py-16" aria-labelledby="beauty-title">
+    <div class="grid gap-8 lg:grid-cols-[1fr,1.2fr] items-center">
+      <div data-aos="fade-right">
+        <p class="text-sm uppercase tracking-[0.35em] text-brand.red" data-i18n="beauty.title">Beauty Rituals</p>
+        <h2 class="mt-4 text-3xl font-bold" data-i18n="beauty.heading">Glow inside out</h2>
+        <p class="mt-4 text-gray-600" data-i18n="beauty.desc">Discover our curated selection of skincare and cosmetics that let your inner glow shine.</p>
+        <a href="categories.html" class="shine-btn mt-6 inline-flex items-center rounded-full bg-brand.red px-6 py-3 font-semibold text-white hover:bg-rose-600 transition" data-i18n="beauty.cta">Book a Glow Consultation →</a>
+      </div>
+      <div class="grid gap-6 sm:grid-cols-3" data-aos="fade-left">
+        <article class="rounded-2xl border border-rose-100 bg-white/80 p-5 shadow-sm">
+          <p class="text-sm font-semibold text-brand.red" data-i18n="beauty.prod1.name">Radiant Skin Kit</p>
+          <p class="mt-2 text-sm text-gray-600" data-i18n="beauty.prod1.desc">Vitamin-rich cleanser, toner &amp; moisturizer for an effortless glow.</p>
+        </article>
+        <article class="rounded-2xl border border-rose-100 bg-white/80 p-5 shadow-sm">
+          <p class="text-sm font-semibold text-brand.red" data-i18n="beauty.prod2.name">Velvet Bloom Palette</p>
+          <p class="mt-2 text-sm text-gray-600" data-i18n="beauty.prod2.desc">Blendable pigments inspired by sunset florals for eyes &amp; cheeks.</p>
+        </article>
+        <article class="rounded-2xl border border-rose-100 bg-white/80 p-5 shadow-sm">
+          <p class="text-sm font-semibold text-brand.red" data-i18n="beauty.prod3.name">Silk Touch Body Duo</p>
+          <p class="mt-2 text-sm text-gray-600" data-i18n="beauty.prod3.desc">Botanical scrub &amp; body souffle to brighten and soften skin.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="visit" class="py-16" aria-labelledby="visit-title">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-10 items-center">
+      <img src="assets/images/store.jpg" alt="Osun storefront" class="rounded-3xl w-full object-cover shadow-elev" data-aos="fade-right" />
+      <div data-aos="fade-left" data-aos-delay="150">
+        <h2 id="visit-title" class="text-3xl font-bold" data-i18n="visit.title">Visit Our Store</h2>
+        <p class="mt-3 text-gray-600" data-i18n="visit.desc">Find us at Bayu Tinggi, Klang. Welcome to try on and shop.</p>
+        <div class="mt-6 p-5 rounded-2xl bg-white border shadow-sm">
+          <p class="font-semibold" data-i18n="visit.addrTitle">Address</p>
+          <p class="mt-1 text-gray-700">No. 4, 4A, 4B, Jln Bayu Tinggi 2a, KS6, Bayu Tinggi, 41200 Klang, Selangor</p>
+          <p class="mt-4 text-sm text-gray-600" data-i18n="visit.hours">Daily 10:00–20:00</p>
+          <a href="https://www.google.com/maps/dir/?api=1&destination=No.+4,+4A,+4B,+Jln+Bayu+Tinggi+2a,+KS6,+Bayu+Tinggi,+41200+Klang,+Selangor"
+             target="_blank" rel="noopener" class="mt-4 inline-flex items-center gap-2 rounded-full bg-brand-red px-5 py-2 text-sm font-semibold text-white shadow-elev transition hover:-translate-y-0.5 hover:bg-rose-600"
+             data-i18n="visit.map">
+            View on Google Maps
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-gray-900 text-gray-300" data-aos="fade-up">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12 grid md:grid-cols-4 gap-10">
+      <div>
+        <p class="text-yellow-400 font-semibold">Osun Beauty &amp; Boutique</p>
+        <p class="mt-3 text-sm text-gray-400">© 2025 Osun. All Rights Reserved.</p>
+      </div>
+      <div>
+        <p class="font-semibold text-white" data-i18n="foot.shop">Shop</p>
+        <ul class="mt-3 space-y-2 text-sm">
+          <li><a href="categories.html" class="hover:text-white" data-i18n="cat.dresses">Dresses</a></li>
+          <li><a href="categories.html" class="hover:text-white" data-i18n="cat.tops">Tops &amp; Blouses</a></li>
+          <li><a href="#beauty" class="hover:text-white" data-i18n="cat.beauty">Beauty</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-semibold text-white" data-i18n="foot.support">Support</p>
+        <ul class="mt-3 space-y-2 text-sm">
+          <li><a href="shipping.html" class="hover:text-white" data-i18n="pol.ship">Shipping</a></li>
+          <li><a href="returns.html" class="hover:text-white" data-i18n="pol.return">Returns</a></li>
+          <li><a href="privacy.html" class="hover:text-white" data-i18n="pol.privacy">Privacy</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-semibold text-white" data-i18n="foot.follow">Follow</p>
+        <div class="mt-3 flex items-center gap-3">
+          <a href="#" aria-label="Instagram" class="hover:text-white">IG</a>
+          <a href="#" aria-label="Facebook" class="hover:text-white">FB</a>
+          <a href="#" aria-label="TikTok" class="hover:text-white">TT</a>
+        </div>
+        <a href="admin.html" class="mt-4 inline-block text-sm text-yellow-400 hover:text-white" data-i18n="foot.admin">Admin</a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="cart-drawer" class="fixed inset-0 hidden z-50">
+    <div id="cart-mask" class="absolute inset-0 mask opacity-0 transition-opacity"></div>
+    <aside class="absolute right-0 top-0 h-full w-full max-w-md bg-white shadow-2xl translate-x-full transition-transform flex flex-col" aria-labelledby="cart-title" role="dialog" aria-modal="true">
+      <div class="px-5 h-16 border-b flex items-center justify-between">
+        <h3 id="cart-title" class="text-lg font-semibold" data-i18n="cart.title">Your Cart</h3>
+        <button id="cart-close" class="p-2 rounded-lg border hover:shadow-elev" aria-label="Close cart">×</button>
+      </div>
+      <div id="cart-items" class="flex-1 overflow-y-auto p-4 space-y-4"></div>
+      <div class="border-t p-5">
+        <div class="flex items-center justify-between mb-4">
+          <span class="text-sm text-gray-600" data-i18n="cart.subtotal">Subtotal</span>
+          <span id="cart-subtotal" class="text-lg font-semibold">MYR 0.00</span>
+        </div>
+        <a href="checkout.html" class="w-full shine-btn inline-flex justify-center rounded-full bg-brand.red text-white py-3 font-semibold hover:bg-rose-600 transition" aria-label="Checkout" data-i18n="cart.checkout" data-i18n-aria-label="cart.checkout">Secure checkout</a>
+        <p class="text-xs text-gray-500 mt-2" data-i18n="cart.note">This storefront is for demos only. Payments are simulated.</p>
+      </div>
+    </aside>
+  </div>
+
+  <script src="assets/js/content.js"></script>
+  <script src="assets/js/site.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.OSUN && typeof window.OSUN.initAOS === 'function') {
+        window.OSUN.initAOS();
+      } else if (window.AOS && typeof window.AOS.init === 'function') {
+        window.AOS.init({ once: true, duration: 800, easing: 'ease-out-cubic' });
+      }
+    });
+  </script>
+
+  <script src="assets/osun-flow.js"></script>
+  <script>
+    // Development helper: confirm OSUN helper loaded
+    (function(){
+      if (window.OSUN) {
+        console.info('OSUN loaded — cart helper available.');
+      } else {
+        console.warn('OSUN not found. Ensure assets/osun-flow.js is present and loaded.');
+      }
+    })();
+  </script>
+</body>
+</html>

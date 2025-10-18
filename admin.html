@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Osun Content Studio</title>
+  <meta name="description" content="Update homepage copy, featured categories, and hero imagery with Osun's lightweight admin studio." />
+  <link rel="canonical" href="https://osun.example.com/admin" />
+  <meta property="og:title" content="Osun Beauty | Admin" />
+  <meta property="og:description" content="Keep your boutique content fresh with quick notes and exports." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/images/hero.jpg" />
+  <meta property="og:url" content="https://osun.example.com/admin" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter','ui-sans-serif','system-ui'] },
+          colors: { brand: { red:'#E11D48', yellow:'#F59E0B' } },
+          boxShadow: {
+            'elev': '0 10px 30px -12px rgba(0,0,0,0.25)'
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <link rel="stylesheet" href="assets/css/site.css" />
+  <style>
+    html { scroll-behavior: smooth; }
+    .shine-btn{ position:relative; overflow:hidden; }
+    .shine-btn::after{
+      content:''; position:absolute; top:0; left:-75%; width:50%; height:100%;
+      background:linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.5) 50%, rgba(255,255,255,0) 100%);
+      transform:skewX(-20deg); transition:.9s;
+    }
+    .shine-btn:hover::after{ left:125%; }
+    .mask { background: rgba(0,0,0,.35); backdrop-filter: saturate(120%) blur(1px); }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <header class="sticky top-0 z-40 bg-white/85 backdrop-blur border-b">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between" data-aos="fade-down">
+      <a href="index.html" class="flex items-center gap-2" aria-label="Osun home">
+        <span class="h-8 w-8 rounded-full bg-brand-red inline-block shadow-elev"></span>
+        <span class="text-xl sm:text-2xl font-extrabold tracking-tight text-brand-red">Osun Beauty &amp; Boutique</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-6" aria-label="Primary">
+        <a href="index.html#shop" class="hover:text-brand-yellow transition" data-i18n="nav.shop">Shop</a>
+        <a href="categories.html" class="hover:text-brand-yellow transition" data-i18n="nav.categories">Categories</a>
+        <a href="index.html#beauty" class="hover:text-brand-yellow transition" data-i18n="nav.beauty">Beauty</a>
+        <a href="about.html" class="hover:text-brand-yellow transition" data-i18n="nav.about">About</a>
+        <a href="admin.html" class="text-brand-yellow font-semibold" data-i18n="nav.admin">Admin</a>
+      </nav>
+      <div class="flex items-center gap-2">
+        <button id="lang-zh" class="px-3 py-1 rounded-full border hover:shadow-elev transition text-sm">中文</button>
+        <button id="lang-en" class="px-3 py-1 rounded-full border hover:shadow-elev transition text-sm">EN</button>
+        <button id="cart-open" class="relative ml-1 p-2 rounded-full border hover:shadow-elev transition" aria-label="Open cart">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          <span id="cart-count" class="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 text-xs rounded-full bg-brand-red text-white grid place-items-center">0</span>
+        </button>
+        <button id="menu-toggle" class="md:hidden p-2 rounded-lg border hover:shadow-elev" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </div>
+    </div>
+    <nav id="mobile-menu" class="md:hidden hidden border-t bg-white" aria-label="Mobile">
+      <div class="px-4 py-3 space-y-2">
+        <a href="index.html#shop" class="block py-2" data-i18n="nav.shop">Shop</a>
+        <a href="categories.html" class="block py-2" data-i18n="nav.categories">Categories</a>
+        <a href="index.html#beauty" class="block py-2" data-i18n="nav.beauty">Beauty</a>
+        <a href="about.html" class="block py-2" data-i18n="nav.about">About</a>
+        <a href="admin.html" class="block py-2" data-i18n="nav.admin">Admin</a>
+      </div>
+    </nav>
+  </header>
+
+  <section id="admin-login" class="pt-28 pb-20">
+    <div class="max-w-md mx-auto px-6" data-aos="fade-up">
+      <div class="rounded-3xl bg-white shadow-xl border border-rose-100/80 p-8 text-center">
+        <span class="inline-flex items-center justify-center rounded-full bg-rose-100 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-brand-red" data-i18n="admin.login.title">Secure admin access</span>
+        <h1 class="mt-4 text-2xl font-bold text-gray-900" data-i18n="admin.login.subtitle">Enter the admin password to continue updating boutique content.</h1>
+        <form id="adminLoginForm" class="mt-6 space-y-4" autocomplete="off">
+          <div class="text-left">
+            <label for="adminPassword" class="block text-sm font-semibold text-gray-700" data-i18n="admin.login.password">Admin password</label>
+            <input id="adminPassword" name="password" type="password" class="mt-2 w-full rounded-lg border border-gray-200 px-4 py-2 focus:border-brand-red focus:outline-none" placeholder="••••••" required />
+          </div>
+          <button type="submit" class="shine-btn w-full rounded-full bg-brand-red px-6 py-3 text-sm font-semibold text-white shadow hover:bg-rose-600 transition" data-i18n="admin.login.submit">Unlock dashboard</button>
+        </form>
+        <p id="adminLoginError" class="mt-4 hidden text-sm font-medium text-red-600" role="alert" data-i18n="admin.login.error">Incorrect password. Please try again.</p>
+        <p class="mt-4 text-xs text-gray-500" data-i18n="admin.login.hint">Need the password? Reach out to your Osun web partner.</p>
+      </div>
+    </div>
+  </section>
+
+  <main id="admin-app" class="hidden pt-28 pb-20">
+    <section class="max-w-4xl mx-auto px-6" aria-labelledby="admin-title">
+      <div class="rounded-3xl bg-white shadow-xl border border-rose-100/80 p-8" data-aos="fade-up">
+        <h1 id="admin-title" class="text-3xl font-bold text-gray-900 text-center" data-i18n="admin.title">Osun Content Studio</h1>
+        <p class="mt-3 text-sm text-gray-600 text-center" data-i18n="admin.subtitle">Update homepage copy, surface new categories, and refresh hero imagery before publishing.</p>
+        <div class="mt-8 grid gap-4 rounded-2xl bg-rose-50/60 border border-rose-100 p-5 text-sm text-gray-600" data-aos="fade-up" data-aos-delay="100">
+          <div>
+            <p class="font-semibold text-brand-red" data-i18n="admin.status.storage">Local save</p>
+            <p data-i18n="admin.status.storageDesc">Changes are stored in your browser. Export JSON when you are ready to push live.</p>
+          </div>
+          <div>
+            <p class="font-semibold text-brand-red" data-i18n="admin.status.workflow">Workflow tip</p>
+            <p data-i18n="admin.status.workflowDesc">After saving, share the export file with your web developer or replace content manually.</p>
+          </div>
+        </div>
+        <nav class="mt-10 flex flex-wrap items-center justify-center gap-3" data-aos="fade-up" data-aos-delay="140">
+          <a href="#hero-panel" class="shine-btn rounded-full border border-brand-red bg-rose-50/80 px-5 py-2 text-sm font-semibold text-brand-red hover:bg-rose-100 hover:shadow transition" data-i18n="admin.nav.hero">Homepage</a>
+          <a href="#categories-panel" class="shine-btn rounded-full border border-brand-red bg-rose-50/80 px-5 py-2 text-sm font-semibold text-brand-red hover:bg-rose-100 hover:shadow transition" data-i18n="admin.nav.categories">Categories</a>
+          <a href="#about-panel" class="shine-btn rounded-full border border-brand-red bg-rose-50/80 px-5 py-2 text-sm font-semibold text-brand-red hover:bg-rose-100 hover:shadow transition" data-i18n="admin.nav.about">About page</a>
+          <button type="button" id="adminReset" class="shine-btn rounded-full border border-brand-red/60 bg-white px-5 py-2 text-sm font-semibold text-brand-red shadow-sm transition hover:bg-rose-50 hover:shadow" data-i18n="admin.reset">Reset to defaults</button>
+          <button type="button" id="adminExport" class="shine-btn rounded-full bg-brand-red px-5 py-2 text-sm font-semibold text-white shadow hover:bg-rose-600 transition" data-i18n="admin.categories.export">Export JSON</button>
+        </nav>
+
+        <section id="hero-panel" class="mt-12 rounded-3xl border border-rose-100 bg-white p-8 shadow-sm" data-aos="fade-up" data-aos-delay="180">
+          <h2 class="text-2xl font-semibold text-gray-900" data-i18n="admin.hero.heading">Homepage hero</h2>
+          <p class="mt-2 text-sm text-gray-600" data-i18n="admin.hero.desc">Adjust the main headline, supporting copy, and call-to-action buttons.</p>
+          <div id="hero-form-wrap" class="mt-6"></div>
+        </section>
+
+        <section id="categories-panel" class="mt-12 rounded-3xl border border-rose-100 bg-white p-8 shadow-sm" data-aos="fade-up" data-aos-delay="220">
+          <div class="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+            <div>
+              <h2 class="text-2xl font-semibold text-gray-900" data-i18n="admin.categories.heading">Category library</h2>
+              <p class="mt-2 text-sm text-gray-600" data-i18n="admin.categories.desc">Add new collections and reorder highlights for the categories page.</p>
+            </div>
+            <button type="button" id="categoryAddItem" class="shine-btn self-start rounded-full bg-brand-red px-5 py-2 text-sm font-semibold text-white shadow hover:bg-rose-600 transition" data-i18n="admin.categories.add">Add</button>
+          </div>
+          <div id="category-manager" class="mt-6 space-y-6"></div>
+        </section>
+
+        <section id="about-panel" class="mt-12 rounded-3xl border border-rose-100 bg-white p-8 shadow-sm" data-aos="fade-up" data-aos-delay="260">
+          <h2 class="text-2xl font-semibold text-gray-900" data-i18n="admin.about.heading">About page</h2>
+          <p class="mt-2 text-sm text-gray-600" data-i18n="admin.about.desc">Refresh founder stories, milestones, and community invitations.</p>
+          <div id="about-form-wrap" class="mt-6 space-y-8"></div>
+        </section>
+
+        <section class="mt-12 rounded-2xl border border-dashed border-rose-200 bg-rose-50/70 p-6 text-sm text-gray-600" data-aos="fade-up" data-aos-delay="300">
+          <h2 class="text-base font-semibold text-brand-red" data-i18n="admin.notes.heading">Publishing notes</h2>
+          <p class="mt-2" data-i18n="admin.notes.desc">Share the exported configuration or manually replace copy within the HTML files. A condensed integration checklist is included below when you are ready to connect a CMS.</p>
+          <ul class="mt-4 list-disc space-y-2 pl-5">
+            <li><span data-i18n="admin.notes.item1.prefix">Homepage hero updates live in</span> <code class="rounded bg-white px-2 py-1 text-xs text-brand-red">index.html</code></li>
+            <li><span data-i18n="admin.notes.item2.prefix">Category cards can be updated in</span> <code class="rounded bg-white px-2 py-1 text-xs text-brand-red">categories.html</code></li>
+            <li><span data-i18n="admin.notes.item3.prefix">Founder story copy resides in</span> <code class="rounded bg-white px-2 py-1 text-xs text-brand-red">about.html</code></li>
+          </ul>
+        </section>
+
+        <section class="mt-6 rounded-2xl border border-rose-100 bg-white/90 p-6 text-sm text-gray-600" data-aos="fade-up" data-aos-delay="340">
+          <h2 class="text-base font-semibold text-brand.red" data-i18n="admin.integration.heading">Headless CMS integration guide</h2>
+          <p class="mt-2" data-i18n="admin.integration.desc">When you are ready to automate updates, follow the quick plan below or share it with your developer.</p>
+          <ol class="mt-4 list-decimal space-y-2 pl-5">
+            <li data-i18n="admin.integration.step1">Connect a headless CMS such as Sanity, Contentful, or Strapi and recreate the hero, category, and about models that mirror the forms above.</li>
+            <li data-i18n="admin.integration.step2">Replace the demo fetch in <code class="rounded bg-rose-50/80 px-2 py-0.5 text-xs text-brand.red">assets/js/content.js</code> with live API calls, then hydrate the pages using the same data attributes.</li>
+            <li data-i18n="admin.integration.step3">Use the export JSON action as your migration seed and schedule webhooks so content saves trigger a redeploy or cache refresh.</li>
+          </ol>
+          <a href="README.md#headless-cms-integration" class="mt-4 inline-flex items-center text-sm font-semibold text-brand.red hover:underline" data-i18n="admin.integration.link">View the README integration checklist →</a>
+        </section>
+
+        <div id="admin-result" class="mt-8 hidden rounded-2xl border border-rose-200 bg-rose-50/80 p-5 text-sm text-gray-700"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-gray-900 text-gray-300" data-aos="fade-up">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12 grid md:grid-cols-4 gap-10">
+      <div>
+        <p class="text-yellow-400 font-semibold">Osun Beauty &amp; Boutique</p>
+        <p class="mt-3 text-sm text-gray-400">© 2025 Osun. All Rights Reserved.</p>
+      </div>
+      <div>
+        <p class="font-semibold text-white" data-i18n="foot.shop">Shop</p>
+        <ul class="mt-3 space-y-2 text-sm">
+          <li><a href="index.html#categories" class="hover:text-white" data-i18n="cat.dresses">Dresses</a></li>
+          <li><a href="index.html#categories" class="hover:text-white" data-i18n="cat.tops">Tops &amp; Blouses</a></li>
+          <li><a href="index.html#beauty" class="hover:text-white" data-i18n="cat.beauty">Beauty</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-semibold text-white" data-i18n="foot.support">Support</p>
+        <ul class="mt-3 space-y-2 text-sm">
+          <li><a href="shipping.html" class="hover:text-white" data-i18n="pol.ship">Shipping</a></li>
+          <li><a href="returns.html" class="hover:text-white" data-i18n="pol.return">Returns</a></li>
+          <li><a href="privacy.html" class="hover:text-white" data-i18n="pol.privacy">Privacy</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-semibold text-white" data-i18n="foot.follow">Follow</p>
+        <div class="mt-3 flex items-center gap-3">
+          <a href="#" aria-label="Instagram" class="hover:text-white">IG</a>
+          <a href="#" aria-label="Facebook" class="hover:text-white">FB</a>
+          <a href="#" aria-label="TikTok" class="hover:text-white">TT</a>
+        </div>
+        <a href="admin.html" class="mt-4 inline-block text-sm text-yellow-400 hover:text-white" data-i18n="foot.admin">Admin</a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="cart-drawer" class="fixed inset-0 hidden z-50">
+    <div id="cart-mask" class="absolute inset-0 mask opacity-0 transition-opacity"></div>
+    <aside class="absolute right-0 top-0 h-full w-full max-w-md bg-white shadow-2xl translate-x-full transition-transform flex flex-col" aria-labelledby="cart-title" role="dialog" aria-modal="true">
+      <div class="px-5 h-16 border-b flex items-center justify-between">
+        <h3 id="cart-title" class="text-lg font-semibold" data-i18n="cart.title">Your Cart</h3>
+        <button id="cart-close" class="p-2 rounded-lg border hover:shadow-elev" aria-label="Close cart">×</button>
+      </div>
+      <div id="cart-items" class="flex-1 overflow-y-auto p-4 space-y-4"></div>
+      <div class="border-t p-5">
+        <div class="flex items-center justify-between mb-4">
+          <span class="text-sm text-gray-600" data-i18n="cart.subtotal">Subtotal</span>
+          <span id="cart-subtotal" class="text-lg font-semibold">MYR 0.00</span>
+        </div>
+        <a href="checkout.html" class="w-full shine-btn inline-flex justify-center rounded-full bg-brand.red text-white py-3 font-semibold hover:bg-rose-600 transition" aria-label="Checkout" data-i18n="cart.checkout" data-i18n-aria-label="cart.checkout">Secure checkout</a>
+        <p class="text-xs text-gray-500 mt-2" data-i18n="cart.note">This storefront is for demos only. Payments are simulated.</p>
+      </div>
+    </aside>
+  </div>
+
+  <script src="assets/js/content.js"></script>
+  <script src="assets/js/site.js"></script>
+  <script src="assets/js/admin.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.OSUN && typeof window.OSUN.initAOS === 'function') {
+        window.OSUN.initAOS();
+      } else if (window.AOS && typeof window.AOS.init === 'function') {
+        window.AOS.init({ once: true, duration: 800, easing: 'ease-out-cubic' });
+      }
+    });
+  </script>
+  <script src="js/content.js"></script>
+  <script src="js/site.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

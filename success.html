@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Osun Beauty & Boutique</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            osun: {
+              pink: '#f472b6',
+              dark: '#111827',
+              soft: '#f9fafb'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .card { box-shadow: 0 8px 24px rgba(0,0,0,.08); }
+  </style>
+</head>
+
+<body class="bg-osun-soft text-gray-800">
+  <header class="sticky top-0 z-50 bg-white/80 backdrop-blur border-b">
+    <div class="mx-auto max-w-5xl px-4 py-3 flex items-center justify-between">
+      <a href="index.html" class="font-semibold text-lg">Osun Beauty & Boutique</a>
+      <nav class="flex items-center gap-4 text-sm">
+        <a href="index.html" class="hover:text-osun-pink">首頁</a>
+        <a href="login.html" class="hover:text-osun-pink">結帳</a>
+      </nav>
+    </div>
+  </header>
+  <main class="mx-auto max-w-5xl px-4 py-8">
+
+  <section class="bg-white card rounded-2xl p-8 max-w-xl mx-auto text-center">
+    <h2 class="text-2xl font-extrabold text-green-600 mb-2">付款成功 🎉</h2>
+    <p class="text-gray-600 mb-6">感謝您的訂購！我們已寄出確認信（示意）。</p>
+    <a href="index.html" class="inline-flex bg-gray-800 text-white rounded-full px-6 py-3">返回首頁</a>
+  </section>
+  <script>
+    // 清空示範購物車（可依需求保留）
+    // localStorage.removeItem('osun_cart_items');
+    // localStorage.removeItem('osun_total_cents');
+  </script>
+
+  </main>
+  <footer class="mt-16 border-t py-8 text-center text-sm text-gray-500">
+    © 2025 Osun Beauty & Boutique
+  </footer>
+  <script src="assets/osun-flow.js"></script>
+</body>
+</html>

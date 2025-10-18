@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Osun Beauty & Boutique</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            osun: {
+              pink: '#f472b6',
+              dark: '#111827',
+              soft: '#f9fafb'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .card { box-shadow: 0 8px 24px rgba(0,0,0,.08); }
+  </style>
+</head>
+
+<body class="bg-osun-soft text-gray-800">
+  <header class="sticky top-0 z-50 bg-white/80 backdrop-blur border-b">
+    <div class="mx-auto max-w-5xl px-4 py-3 flex items-center justify-between">
+      <a href="index.html" class="font-semibold text-lg">Osun Beauty & Boutique</a>
+      <nav class="flex items-center gap-4 text-sm">
+        <a href="index.html" class="hover:text-osun-pink">首頁</a>
+        <a href="login.html" class="hover:text-osun-pink">結帳</a>
+      </nav>
+    </div>
+  </header>
+  <main class="mx-auto max-w-5xl px-4 py-8">
+
+  <section class="bg-white card rounded-2xl p-8 max-w-2xl mx-auto">
+    <h2 class="text-xl font-bold mb-6">選擇付款方式</h2>
+    <div id="summary" class="mb-6"></div>
+
+    <div class="space-y-3">
+      <button id="payVisa" class="w-full bg-osun-pink text-white rounded-lg py-3 hover:opacity-90">
+        使用 Visa / MasterCard（Stripe）
+      </button>
+      <button id="payTnG" class="w-full border rounded-lg py-3" disabled title="之後可接 iPay88">
+        Touch'n Go（iPay88）— 即將推出
+      </button>
+    </div>
+
+    <div class="flex items-center justify-between mt-6">
+      <a href="checkout-confirm.html" class="text-sm text-gray-600 hover:text-gray-800">← 上一步</a>
+      <a href="index.html" class="text-sm text-gray-600 hover:text-gray-800">取消</a>
+    </div>
+  </section>
+
+  <script>
+    OSUN.ensureDemoCart();
+    renderOrderSummary('summary');
+
+    document.getElementById('payVisa').addEventListener('click', async function(){
+      const order = { currency: 'myr', items: OSUN.getCart() };
+      try {
+        const res = await fetch('/api/create-checkout-session', {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({ order })
+        });
+        const data = await res.json();
+        if (data.url) window.location.href = data.url;
+        else alert('付款啟動失敗：' + (data.error||'未知錯誤'));
+      } catch (e) { alert('請稍後再試'); }
+    });
+  </script>
+
+  </main>
+  <footer class="mt-16 border-t py-8 text-center text-sm text-gray-500">
+    © 2025 Osun Beauty & Boutique
+  </footer>
+  <script src="assets/osun-flow.js"></script>
+</body>
+</html>

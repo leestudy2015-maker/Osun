@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Osun Beauty & Boutique</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            osun: {
+              pink: '#f472b6',
+              dark: '#111827',
+              soft: '#f9fafb'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .card { box-shadow: 0 8px 24px rgba(0,0,0,.08); }
+  </style>
+</head>
+
+<body class="bg-osun-soft text-gray-800">
+  <header class="sticky top-0 z-50 bg-white/80 backdrop-blur border-b">
+    <div class="mx-auto max-w-5xl px-4 py-3 flex items-center justify-between">
+      <a href="index.html" class="font-semibold text-lg">Osun Beauty & Boutique</a>
+      <nav class="flex items-center gap-4 text-sm">
+        <a href="index.html" class="hover:text-osun-pink">首頁</a>
+        <a href="login.html" class="hover:text-osun-pink">結帳</a>
+      </nav>
+    </div>
+  </header>
+  <main class="mx-auto max-w-5xl px-4 py-8">
+
+  <section class="grid md:grid-cols-2 gap-8">
+    <div class="bg-white card rounded-2xl p-8">
+      <h2 class="text-xl font-bold mb-4">訂單明細</h2>
+      <div id="summary"></div>
+      <div class="text-sm text-gray-500 mt-4">* 可於下個步驟選擇付款方式</div>
+    </div>
+    <div class="bg-white card rounded-2xl p-8">
+      <h2 class="text-xl font-bold mb-4">收件資訊</h2>
+      <div id="customerBox" class="space-y-1 text-gray-700"></div>
+      <div class="flex items-center justify-between mt-6">
+        <a href="checkout-info.html" class="text-sm text-gray-600 hover:text-gray-800">← 上一步</a>
+        <a href="payment.html" class="bg-osun-pink text-white rounded-lg px-6 py-3 hover:opacity-90">前往付款</a>
+      </div>
+    </div>
+  </section>
+  <script>
+    OSUN.ensureDemoCart();
+    renderOrderSummary('summary');
+    const c = OSUN.getCustomer();
+    const box = document.getElementById('customerBox');
+    box.innerHTML = c ? (
+      '<div>姓名：' + c.name + '</div>' +
+      '<div>Email：' + c.email + '</div>' +
+      '<div>電話：' + c.phone + '</div>' +
+      '<div>地址：' + c.city + c.district + c.address + '</div>'
+    ) : '<div class="text-gray-500">尚未填寫資料</div>';
+  </script>
+
+  </main>
+  <footer class="mt-16 border-t py-8 text-center text-sm text-gray-500">
+    © 2025 Osun Beauty & Boutique
+  </footer>
+  <script src="assets/osun-flow.js"></script>
+</body>
+</html>

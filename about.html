@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>About Osun Beauty &amp; Boutique</title>
+  <meta name="description" content="Meet founder Madam Liyana Osman and explore the values and milestones behind Osun Beauty &amp; Boutique." />
+  <link rel="canonical" href="https://osun.example.com/about" />
+  <meta property="og:title" content="About Osun Beauty &amp; Boutique" />
+  <meta property="og:description" content="Elegance rooted in community. Discover the Osun story." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/images/hero.jpg" />
+  <meta property="og:url" content="https://osun.example.com/about" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter','ui-sans-serif','system-ui'] },
+          colors: { brand: { red:'#E11D48', yellow:'#F59E0B' } },
+          boxShadow: {
+            'elev': '0 10px 30px -12px rgba(0,0,0,0.25)'
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <link rel="stylesheet" href="assets/css/site.css" />
+  <style>
+    html { scroll-behavior: smooth; }
+    .shine-btn{ position:relative; overflow:hidden; }
+    .shine-btn::after{
+      content:''; position:absolute; top:0; left:-75%; width:50%; height:100%;
+      background:linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.5) 50%, rgba(255,255,255,0) 100%);
+      transform:skewX(-20deg); transition:.9s;
+    }
+    .shine-btn:hover::after{ left:125%; }
+    .mask { background: rgba(0,0,0,.35); backdrop-filter: saturate(120%) blur(1px); }
+  </style>
+</head>
+<body class="bg-white text-gray-800">
+  <header class="sticky top-0 z-40 bg-white/85 backdrop-blur border-b">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between" data-aos="fade-down">
+      <a href="index.html" class="flex items-center gap-2" aria-label="Osun home">
+        <span class="h-8 w-8 rounded-full bg-brand-red inline-block shadow-elev"></span>
+        <span class="text-xl sm:text-2xl font-extrabold tracking-tight text-brand-red">Osun Beauty &amp; Boutique</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-6" aria-label="Primary">
+        <a href="index.html#shop" class="hover:text-brand-yellow transition" data-i18n="nav.shop">Shop</a>
+        <a href="categories.html" class="hover:text-brand-yellow transition" data-i18n="nav.categories">Categories</a>
+        <a href="index.html#beauty" class="hover:text-brand-yellow transition" data-i18n="nav.beauty">Beauty</a>
+        <a href="about.html" class="text-brand-yellow font-semibold" data-i18n="nav.about">About</a>
+        <a href="admin.html" class="hover:text-brand-yellow transition" data-i18n="nav.admin">Admin</a>
+      </nav>
+      <div class="flex items-center gap-2">
+        <button id="lang-zh" class="px-3 py-1 rounded-full border hover:shadow-elev transition text-sm">中文</button>
+        <button id="lang-en" class="px-3 py-1 rounded-full border hover:shadow-elev transition text-sm">EN</button>
+        <button id="cart-open" class="relative ml-1 p-2 rounded-full border hover:shadow-elev transition" aria-label="Open cart">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          <span id="cart-count" class="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 text-xs rounded-full bg-brand-red text-white grid place-items-center">0</span>
+        </button>
+        <button id="menu-toggle" class="md:hidden p-2 rounded-lg border hover:shadow-elev" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </div>
+    </div>
+    <nav id="mobile-menu" class="md:hidden hidden border-t bg-white" aria-label="Mobile">
+      <div class="px-4 py-3 space-y-2">
+        <a href="index.html#shop" class="block py-2" data-i18n="nav.shop">Shop</a>
+        <a href="categories.html" class="block py-2" data-i18n="nav.categories">Categories</a>
+        <a href="index.html#beauty" class="block py-2" data-i18n="nav.beauty">Beauty</a>
+        <a href="about.html" class="block py-2" data-i18n="nav.about">About</a>
+        <a href="admin.html" class="block py-2" data-i18n="nav.admin">Admin</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="pt-28 pb-20">
+    <section class="bg-gradient-to-b from-pink-50 via-white to-white" aria-labelledby="about-hero-title">
+      <div class="max-w-5xl mx-auto px-6 py-16 text-center" data-aos="fade-up">
+        <p class="text-sm uppercase tracking-[0.4em] text-brand-red" data-i18n="aboutpage.hero.tag" data-content-key="about.hero.tag">Our Founder Story</p>
+        <h1 id="about-hero-title" class="mt-4 text-4xl font-bold text-gray-900" data-i18n="aboutpage.hero.title" data-content-key="about.hero.title">Elegance rooted in community.</h1>
+        <p class="mt-4 text-base md:text-lg text-gray-600" data-i18n="aboutpage.hero.subtitle" data-content-key="about.hero.subtitle">Osun began as a living room styling circle hosted by our founder, Madam Liyana Osman. Today we continue her tradition of personalised care with fashion and beauty that celebrates your glow.</p>
+        <div class="mt-8 flex flex-wrap justify-center gap-3">
+          <a href="#founder" class="shine-btn inline-flex items-center rounded-full bg-brand-red px-6 py-3 text-sm font-semibold text-white hover:bg-rose-600 transition" data-i18n="aboutpage.hero.cta" data-content-key="about.hero.primaryCta" data-content-link="about.hero.primaryLink">Meet Madam Liyana</a>
+        <a href="index.html#visit" class="shine-btn inline-flex items-center rounded-full border border-brand-red bg-rose-50/80 px-6 py-3 text-sm font-semibold text-brand-red hover:bg-rose-100 hover:shadow transition" data-i18n="aboutpage.hero.secondary" data-content-key="about.hero.secondaryCta" data-content-link="about.hero.secondaryLink">Plan a visit</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="founder" class="max-w-6xl mx-auto px-6 py-16 grid gap-10 lg:grid-cols-[0.85fr,1.15fr] lg:items-center">
+      <div data-aos="fade-right">
+        <img src="assets/images/model1.png" alt="Madam Liyana Osman" class="mx-auto w-64 h-64 rounded-full object-cover shadow-elev" data-content-image="about.founder.image" data-content-alt="about.founder.alt" />
+      </div>
+      <div data-aos="fade-left">
+        <p class="text-sm uppercase tracking-[0.35em] text-brand-red" data-i18n="aboutpage.owner.tag" data-content-key="about.founder.tag">Founder</p>
+        <h2 class="mt-4 text-3xl font-bold text-gray-900" data-i18n="aboutpage.owner.title" data-content-key="about.founder.title">Meet Madam Liyana Osman</h2>
+        <p class="mt-4 text-gray-600 leading-relaxed" data-i18n="aboutpage.owner.story" data-content-key="about.founder.story">Raised in Klang, Madam Liyana blended her Peranakan heritage with contemporary styling to help women feel confident at every milestone. She believes beauty is a ritual of care, and each Osun appointment honours that ritual.</p>
+        <blockquote class="mt-6 border-l-4 border-brand-red bg-white/70 p-4 text-left text-sm italic text-gray-600" data-i18n="aboutpage.owner.quote" data-content-key="about.founder.quote">“When a woman feels seen, her glow is unstoppable. Osun exists to light that glow.”</blockquote>
+        <div class="mt-6 grid gap-3 text-sm text-gray-600">
+          <p data-i18n="aboutpage.owner.detail1" data-content-key="about.founder.highlights" data-content-index="0">15+ years curating Southeast Asian designers.</p>
+          <p data-i18n="aboutpage.owner.detail2" data-content-key="about.founder.highlights" data-content-index="1">Certified beauty therapist and wardrobe stylist.</p>
+          <p data-i18n="aboutpage.owner.detail3" data-content-key="about.founder.highlights" data-content-index="2">Hosts monthly glow circles for the Osun community.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-slate-50">
+      <div class="max-w-6xl mx-auto px-6 py-16" data-aos="fade-up">
+        <p class="text-sm uppercase tracking-[0.35em] text-brand.red" data-i18n="aboutpage.values.tag" data-content-key="about.values.tag">Philosophy</p>
+        <h2 class="mt-4 text-3xl font-bold text-gray-900" data-i18n="aboutpage.values.title" data-content-key="about.values.title">Our guiding glow principles</h2>
+        <p class="mt-3 text-gray-600" data-i18n="aboutpage.values.desc" data-content-key="about.values.description">Every collection, consultation, and event reflects the values Madam Liyana instilled in Osun.</p>
+        <div class="mt-8 grid gap-6 md:grid-cols-3">
+          <article class="rounded-2xl border border-rose-100 bg-white p-6 shadow-sm">
+            <h3 class="text-lg font-semibold text-gray-900" data-i18n="aboutpage.values.value1.title" data-content-key="about.values.items.title" data-content-index="0">Intentional Craft</h3>
+            <p class="mt-3 text-sm text-gray-600" data-i18n="aboutpage.values.value1.desc" data-content-key="about.values.items.description" data-content-index="0">We partner with artisans and designers committed to fair practices and exquisite finishing.</p>
+          </article>
+          <article class="rounded-2xl border border-rose-100 bg-white p-6 shadow-sm">
+            <h3 class="text-lg font-semibold text-gray-900" data-i18n="aboutpage.values.value2.title" data-content-key="about.values.items.title" data-content-index="1">Personal Rituals</h3>
+            <p class="mt-3 text-sm text-gray-600" data-i18n="aboutpage.values.value2.desc" data-content-key="about.values.items.description" data-content-index="1">From custom fittings to facial mapping, every touchpoint is tailored to your lifestyle.</p>
+          </article>
+          <article class="rounded-2xl border border-rose-100 bg-white p-6 shadow-sm">
+            <h3 class="text-lg font-semibold text-gray-900" data-i18n="aboutpage.values.value3.title" data-content-key="about.values.items.title" data-content-index="2">Community Glow</h3>
+            <p class="mt-3 text-sm text-gray-600" data-i18n="aboutpage.values.value3.desc" data-content-key="about.values.items.description" data-content-index="2">We create safe, inclusive spaces where women encourage each other to shine.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="max-w-6xl mx-auto px-6 py-16 space-y-10">
+      <div data-aos="fade-up">
+        <p class="text-sm uppercase tracking-[0.35em] text-brand-red" data-i18n="aboutpage.timeline.tag" data-content-key="about.timeline.tag">Milestones</p>
+        <h2 class="mt-4 text-3xl font-bold text-gray-900" data-i18n="aboutpage.timeline.title" data-content-key="about.timeline.title">How Osun blossomed</h2>
+        <p class="mt-3 text-gray-600" data-i18n="aboutpage.timeline.desc" data-content-key="about.timeline.description">From humble beginnings to a beloved destination boutique, we continue to evolve with our community.</p>
+      </div>
+      <div class="grid gap-6 md:grid-cols-3" data-aos="fade-up" data-aos-delay="100">
+        <article class="rounded-2xl border border-rose-100 bg-white p-6 shadow-sm">
+          <h3 class="text-lg font-semibold text-gray-900" data-i18n="aboutpage.timeline.1.title" data-content-key="about.timeline.items.title" data-content-index="0">2010 · Living room fittings</h3>
+          <p class="mt-3 text-sm text-gray-600" data-i18n="aboutpage.timeline.1.desc" data-content-key="about.timeline.items.description" data-content-index="0">Madam Liyana hosted intimate styling sessions for friends, testing fabrics and silhouettes tailored to Malaysian weather.</p>
+        </article>
+        <article class="rounded-2xl border border-rose-100 bg-white p-6 shadow-sm">
+          <h3 class="text-lg font-semibold text-gray-900" data-i18n="aboutpage.timeline.2.title" data-content-key="about.timeline.items.title" data-content-index="1">2015 · Boutique opening</h3>
+          <p class="mt-3 text-sm text-gray-600" data-i18n="aboutpage.timeline.2.desc" data-content-key="about.timeline.items.description" data-content-index="1">Osun’s first storefront launched in Bayu Tinggi, combining fashion racks with a beauty treatment room.</p>
+        </article>
+        <article class="rounded-2xl border border-rose-100 bg-white p-6 shadow-sm">
+          <h3 class="text-lg font-semibold text-gray-900" data-i18n="aboutpage.timeline.3.title" data-content-key="about.timeline.items.title" data-content-index="2">2023 · Glow collective</h3>
+          <p class="mt-3 text-sm text-gray-600" data-i18n="aboutpage.timeline.3.desc" data-content-key="about.timeline.items.description" data-content-index="2">We introduced glow circles, wellness workshops, and digital styling appointments for global clients.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="bg-gradient-to-r from-pink-50 via-white to-white">
+      <div class="max-w-5xl mx-auto px-6 py-16 text-center" data-aos="fade-up">
+        <h2 class="text-3xl font-bold text-gray-900" data-i18n="aboutpage.community.title" data-content-key="about.community.title">Join the glow community</h2>
+        <p class="mt-4 text-gray-600" data-i18n="aboutpage.community.desc" data-content-key="about.community.description">RSVP to our upcoming masterclasses, seasonal lookbook launches, and founder-led conversations.</p>
+        <a href="index.html#visit" class="shine-btn mt-6 inline-flex items-center rounded-full bg-brand-red px-6 py-3 text-sm font-semibold text-white hover:bg-rose-600 transition" data-i18n="aboutpage.community.cta" data-content-key="about.community.ctaText" data-content-link="about.community.ctaLink">Book an in-store session</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-gray-900 text-gray-300" data-aos="fade-up">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12 grid md:grid-cols-4 gap-10">
+      <div>
+        <p class="text-yellow-400 font-semibold">Osun Beauty &amp; Boutique</p>
+        <p class="mt-3 text-sm text-gray-400">© 2025 Osun. All Rights Reserved.</p>
+      </div>
+      <div>
+        <p class="font-semibold text-white" data-i18n="foot.shop">Shop</p>
+        <ul class="mt-3 space-y-2 text-sm">
+          <li><a href="index.html#categories" class="hover:text-white" data-i18n="cat.dresses">Dresses</a></li>
+          <li><a href="index.html#categories" class="hover:text-white" data-i18n="cat.tops">Tops &amp; Blouses</a></li>
+          <li><a href="index.html#beauty" class="hover:text-white" data-i18n="cat.beauty">Beauty</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-semibold text-white" data-i18n="foot.support">Support</p>
+        <ul class="mt-3 space-y-2 text-sm">
+          <li><a href="shipping.html" class="hover:text-white" data-i18n="pol.ship">Shipping</a></li>
+          <li><a href="returns.html" class="hover:text-white" data-i18n="pol.return">Returns</a></li>
+          <li><a href="privacy.html" class="hover:text-white" data-i18n="pol.privacy">Privacy</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-semibold text-white" data-i18n="foot.follow">Follow</p>
+        <div class="mt-3 flex items-center gap-3">
+          <a href="#" aria-label="Instagram" class="hover:text-white">IG</a>
+          <a href="#" aria-label="Facebook" class="hover:text-white">FB</a>
+          <a href="#" aria-label="TikTok" class="hover:text-white">TT</a>
+        </div>
+        <a href="admin.html" class="mt-4 inline-block text-sm text-yellow-400 hover:text-white" data-i18n="foot.admin">Admin</a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="cart-drawer" class="fixed inset-0 hidden z-50">
+    <div id="cart-mask" class="absolute inset-0 mask opacity-0 transition-opacity"></div>
+    <aside class="absolute right-0 top-0 h-full w-full max-w-md bg-white shadow-2xl translate-x-full transition-transform flex flex-col" aria-labelledby="cart-title" role="dialog" aria-modal="true">
+      <div class="px-5 h-16 border-b flex items-center justify-between">
+        <h3 id="cart-title" class="text-lg font-semibold" data-i18n="cart.title">Your Cart</h3>
+        <button id="cart-close" class="p-2 rounded-lg border hover:shadow-elev" aria-label="Close cart">×</button>
+      </div>
+      <div id="cart-items" class="flex-1 overflow-y-auto p-4 space-y-4"></div>
+      <div class="border-t p-5">
+        <div class="flex items-center justify-between mb-4">
+          <span class="text-sm text-gray-600" data-i18n="cart.subtotal">Subtotal</span>
+          <span id="cart-subtotal" class="text-lg font-semibold">MYR 0.00</span>
+        </div>
+        <a href="checkout.html" class="w-full shine-btn inline-flex justify-center rounded-full bg-brand.red text-white py-3 font-semibold hover:bg-rose-600 transition" aria-label="Checkout" data-i18n="cart.checkout" data-i18n-aria-label="cart.checkout">Secure checkout</a>
+        <p class="text-xs text-gray-500 mt-2" data-i18n="cart.note">This storefront is for demos only. Payments are simulated.</p>
+      </div>
+    </aside>
+  </div>
+
+  <script src="assets/js/content.js"></script>
+  <script src="assets/js/site.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.OSUN && typeof window.OSUN.initAOS === 'function') {
+        window.OSUN.initAOS();
+      } else if (window.AOS && typeof window.AOS.init === 'function') {
+        window.AOS.init({ once: true, duration: 800, easing: 'ease-out-cubic' });
+      }
+    });
+  </script>
+</body>
+</html>
