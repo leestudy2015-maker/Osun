@@ -9,7 +9,7 @@
   <meta property="og:title" content="Osun Beauty | Admin" />
   <meta property="og:description" content="Keep your boutique content fresh with quick notes and exports." />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="assets/images/hero.jpg" />
+  <meta property="og:image" content="assets/images/hero.svg" />
   <meta property="og:url" content="https://osun.example.com/admin" />
 
   <script src="https://cdn.tailwindcss.com"></script>
@@ -29,17 +29,6 @@
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <link rel="stylesheet" href="assets/css/site.css" />
-  <style>
-    html { scroll-behavior: smooth; }
-    .shine-btn{ position:relative; overflow:hidden; }
-    .shine-btn::after{
-      content:''; position:absolute; top:0; left:-75%; width:50%; height:100%;
-      background:linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.5) 50%, rgba(255,255,255,0) 100%);
-      transform:skewX(-20deg); transition:.9s;
-    }
-    .shine-btn:hover::after{ left:125%; }
-    .mask { background: rgba(0,0,0,.35); backdrop-filter: saturate(120%) blur(1px); }
-  </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
   <header class="sticky top-0 z-40 bg-white/85 backdrop-blur border-b">
@@ -237,8 +226,5 @@
       }
     });
   </script>
-  <script src="js/content.js"></script>
-  <script src="js/site.js"></script>
-  <script src="js/admin.js"></script>
 </body>
 </html>

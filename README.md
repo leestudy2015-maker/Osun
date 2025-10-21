@@ -10,13 +10,13 @@
 - `checkout-start.html`、`checkout-login.html`、`checkout-info.html`、`checkout-confirm.html`、`checkout-payment.html`、`checkout-success.html`、`checkout-cancel.html`：多頁式結帳示範流程，可體驗登入/訪客註冊、資料填寫、付款與成功/取消頁面。
 - `admin.html`：後台管理表單，可暫存商品名稱、亮點與圖片檔名。
 - `assets/css/site.css`：客製化動畫、遮罩與結帳時間軸樣式。
-- `assets/js/site.js`：全站多語、購物車、結帳流程與入場動畫邏輯。
-- `assets/js/site.js` 亦暴露 `OSUN.flow` API，提供多頁式結帳共用的購物車、訂單摘要與顧客資訊存取。
-- `assets/js/admin.js`：後台表單的互動邏輯。
+- `assets/js/site.js`：全站多語、購物車、結帳流程與入場動畫邏輯，並暴露 `OSUN.flow` API 供各頁面共用訂單狀態。
+- `assets/js/admin.js`：後台表單的互動邏輯（預設密碼為 `osun-demo`，可視需求自行調整）。
 - `assets/js/content.js`：預設文案與分類項目資料。
+- `assets/js/osun-flow.js`：購物流程輔助函式（供結帳流程頁使用）。
+- `assets/images/*.svg`：示意用向量圖片資源，方便在本地與靜態主機預覽。
 - `api/create-checkout-session.js`：Vercel Serverless Function 範例，示範如何呼叫 Stripe Checkout 建立付款連結（需設定 `STRIPE_SECRET_KEY` 與 `SITE_ORIGIN` 環境變數）。
 - `privacy.html`、`shipping.html`、`returns.html`：政策相關靜態頁面。
-- 其他 `.jpg/.png`：示意用圖片資源。
 
 ## 部署方式
 1. 在 GitHub 建立新儲存庫並上傳所有檔案，或直接上傳到任何支援靜態檔案的主機。
@@ -45,12 +45,4 @@
 - 部署前請在專案設定中建立 `STRIPE_SECRET_KEY`（金流私鑰）與 `SITE_ORIGIN`（部署後網域）。
 - 若需替換為其他金流（如 iPay88、ToyyibPay），只需更新 serverless 端點並於 `checkout-payment.html` 調整按鈕邏輯即可。
 - 後台表單具備密碼鎖與即時預覽，送出後會在頁面顯示整理結果並可匯出 JSON，不會寫入資料庫。
-- 如需與後端整合，可將 `js/site.js` 與 `js/content.js` 的資料來源改為 API 或串接實際 CMS。
-
-## Headless CMS integration
-1. **定義內容模型**：在 Sanity、Contentful、Strapi 等 Headless CMS 中建立與後台相同欄位的模型（首頁 hero、分類輪播、關於我們區塊）。
-2. **串接資料來源**：以 CMS API 取代 `js/content.js` 內的預設資料，並沿用頁面上的 `data-content-*` 屬性進行渲染。
-3. **同步後台輸出**：使用後台的 JSON 匯出功能作為初始種子資料，協助建立 CMS 內容。
-4. **自動化佈署**：在 CMS 設定 Webhook，於內容儲存後觸發靜態網站重新部署或清除快取，確保前台即時更新。
-- 後台表單僅示意用途，送出後會在頁面顯示整理結果並可匯出 JSON，不會寫入資料庫。
-- 如需與後端整合，可將 `js/site.js` 中的資料來源改為 API 或串接實際 CMS。
+- 如需與後端整合，可將 `assets/js/site.js` 與 `assets/js/content.js` 的資料來源改為 API 或串接實際 CMS。
