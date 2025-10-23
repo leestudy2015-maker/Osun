@@ -1,8 +1,11 @@
 (function(window, document){
   'use strict';
 
-  const ADMIN_PASSWORD = 'osun-demo';
+  const ADMIN_PASSWORD = 'oSun3968！';
   const SESSION_KEY = 'osun-admin-session';
+  const ORDERS_KEY = 'osun-orders';
+  const ORDER_CHANNEL = 'osun-orders-channel';
+  const ORDER_TIMESTAMP_KEY = `${ORDERS_KEY}:updated`;
   const LANGUAGES = [
     { code: 'en', label: 'English' },
     { code: 'zh', label: '中文' }
@@ -14,6 +17,11 @@
     draft: null,
     initialized: false
   };
+
+  let ordersState = [];
+  let ordersChannel = null;
+  let ordersBound = false;
+  let ordersListenersBound = false;
 
   function ready(handler){
     if (document.readyState === 'loading'){
@@ -165,6 +173,48 @@
     }, 2200);
   }
 
+  function translateKey(key, vars){
+    if (window.OSUN && typeof window.OSUN.translate === 'function'){
+      return window.OSUN.translate(key, vars);
+    }
+    if (!vars) return key;
+    return Object.keys(vars).reduce((acc, current) => acc.replace(new RegExp(`{{\s*${current}\s*}}`, 'g'), vars[current]), key);
+  }
+
+  function getCurrentLang(){
+    if (window.OSUN && typeof window.OSUN.getCurrentLang === 'function'){
+      return window.OSUN.getCurrentLang();
+    }
+    const langAttr = document.documentElement.lang || 'en';
+    return langAttr.startsWith('zh') ? 'zh' : 'en';
+  }
+
+  function formatOrderDate(timestamp){
+    if (!timestamp) return '';
+    const lang = getCurrentLang();
+    const locale = lang === 'zh' ? 'zh-Hant' : 'en-MY';
+    try {
+      return new Intl.DateTimeFormat(locale, { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(timestamp));
+    } catch (err){
+      return new Date(timestamp).toLocaleString();
+    }
+  }
+
+  function formatMYR(amount){
+    const value = Number(amount || 0);
+    return `MYR ${value.toFixed(2)}`;
+  }
+
+  function escapeHtml(value){
+    if (value == null) return '';
+    return String(value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
   function buildField(config){
     const wrapper = document.createElement('div');
     wrapper.className = config.wrapperClass || 'space-y-2';
@@ -213,6 +263,309 @@
     btn.textContent = text;
     btn.addEventListener('click', handler);
     return btn;
+  }
+
+  function loadOrdersFromStorage(){
+    try {
+      const raw = localStorage.getItem(ORDERS_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch (err){
+      console.warn('Failed to load orders', err);
+      return [];
+    }
+  }
+
+  function normalizeOrder(order){
+    if (!order) return null;
+    const tracking = order.trackingNumber || order.id || '';
+    const items = Array.isArray(order.items) ? order.items.map(item => {
+      const quantity = Number(item.quantity ?? item.qty ?? 0) || 0;
+      const unitPrice = Number(item.unitPrice ?? 0);
+      const total = typeof item.total === 'number' ? item.total : quantity * unitPrice;
+      return {
+        id: item.id || tracking,
+        name: item.name || '',
+        quantity,
+        unitPrice,
+        total
+      };
+    }) : [];
+    return {
+      ...order,
+      id: tracking,
+      trackingNumber: tracking,
+      status: order.status || 'new',
+      createdAt: order.createdAt || Date.now(),
+      items,
+      totals: {
+        subtotal: Number(order.totals?.subtotal || 0),
+        shipping: Number(order.totals?.shipping || 0),
+        total: Number(order.totals?.total || 0)
+      }
+    };
+  }
+
+  function normalizeOrders(list){
+    return (Array.isArray(list) ? list : [])
+      .map(normalizeOrder)
+      .filter(Boolean)
+      .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+  }
+
+  function setOrdersState(list, options){
+    const opts = Object.assign({ persist: true, silent: false }, options);
+    ordersState = normalizeOrders(list);
+    if (opts.persist){
+      try {
+        localStorage.setItem(ORDERS_KEY, JSON.stringify(ordersState));
+        localStorage.setItem(ORDER_TIMESTAMP_KEY, String(Date.now()));
+      } catch (err){
+        console.warn('Failed to persist orders', err);
+      }
+    }
+    if (!opts.silent){
+      renderOrders();
+    }
+    updateOrdersBadge();
+  }
+
+  function refreshOrdersFromStorage(){
+    setOrdersState(loadOrdersFromStorage(), { persist: false });
+  }
+
+  function mergeOrder(order, options){
+    const normalized = normalizeOrder(order);
+    if (!normalized) return;
+    const opts = Object.assign({ persist: false, silent: false }, options);
+    const existingIndex = ordersState.findIndex(item => item.trackingNumber === normalized.trackingNumber);
+    const next = existingIndex >= 0
+      ? ordersState.map(item => item.trackingNumber === normalized.trackingNumber ? { ...normalized, status: item.status || normalized.status } : item)
+      : [normalized, ...ordersState];
+    setOrdersState(next, opts);
+    return existingIndex === -1;
+  }
+
+  function getStatusBadgeClass(status){
+    if (status === 'fulfilled') return 'bg-emerald-50 text-emerald-600 border border-emerald-200';
+    if (status === 'processing') return 'bg-amber-50 text-amber-600 border border-amber-200';
+    return 'bg-rose-50 text-brand-red border border-rose-200';
+  }
+
+  function buildOrderCard(order){
+    const status = order.status || 'new';
+    const statusLabel = translateKey(`admin.orders.status.${status}`);
+    const method = order.payment?.method || 'visa';
+    const methodLabel = translateKey(`checkout.summary.method.${method}`);
+    const providerLabel = order.payment?.providerLabel || order.payment?.providerName || '';
+    const paymentLink = order.payment?.gatewayUrl || '';
+    const shippingLabel = order.shipping?.deliveryLabel || translateKey(`checkout.shipping.speed.${order.delivery || order.shipping?.delivery || 'standard'}`);
+    const shippingLines = [
+      order.shipping?.address || '',
+      [order.shipping?.postcode, order.shipping?.city].filter(Boolean).join(' ').trim(),
+      order.shipping?.state || ''
+    ].filter(Boolean).map(line => `<p>${escapeHtml(line)}</p>`).join('');
+    const itemsList = order.items.length
+      ? order.items.map(item => `<li class="flex items-center justify-between gap-4"><span>${escapeHtml(item.name)}</span><span class="font-semibold text-gray-900">${item.quantity} × ${formatMYR(item.unitPrice)}</span></li>`).join('')
+      : `<li class="text-sm text-gray-500">${escapeHtml(translateKey('checkout.summary.empty'))}</li>`;
+    const totals = order.totals || { subtotal: 0, shipping: 0, total: 0 };
+    const card = document.createElement('article');
+    card.className = 'rounded-3xl border border-rose-100 bg-white p-6 shadow-sm space-y-4';
+    card.setAttribute('data-order-id', order.trackingNumber);
+    card.innerHTML = `
+      <div class="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
+        <div>
+          <h3 class="text-lg font-semibold text-gray-900">${escapeHtml(order.trackingNumber)}</h3>
+          <p class="text-xs text-gray-500">${escapeHtml(formatOrderDate(order.createdAt))}</p>
+        </div>
+        <span class="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold ${getStatusBadgeClass(status)}">${escapeHtml(statusLabel)}</span>
+      </div>
+      <div class="grid gap-4 text-sm text-gray-700 md:grid-cols-2">
+        <div>
+          <p class="font-semibold text-gray-900">${escapeHtml(translateKey('admin.orders.customer'))}</p>
+          <p>${escapeHtml(order.account?.fullName || '')}</p>
+          <p>${escapeHtml(order.account?.email || '')}</p>
+          <p>${escapeHtml(order.account?.phone || '')}</p>
+          ${order.account?.notes ? `<p class="mt-1 text-xs text-gray-500">${escapeHtml(order.account.notes)}</p>` : ''}
+        </div>
+        <div>
+          <p class="font-semibold text-gray-900">${escapeHtml(translateKey('admin.orders.shipping'))}</p>
+          ${shippingLines || `<p>${escapeHtml(translateKey('checkout.summary.empty'))}</p>`}
+          ${shippingLabel ? `<p class="mt-1 text-xs text-gray-500">${escapeHtml(shippingLabel)}</p>` : ''}
+        </div>
+        <div>
+          <p class="font-semibold text-gray-900">${escapeHtml(translateKey('admin.orders.payment'))}</p>
+          <p>${escapeHtml(methodLabel)}</p>
+          ${providerLabel ? `<p class="text-xs text-gray-500">${escapeHtml(providerLabel)}</p>` : ''}
+        </div>
+        <div>
+          <p class="font-semibold text-gray-900">${escapeHtml(translateKey('admin.orders.items'))}</p>
+          <ul class="mt-2 space-y-1">${itemsList}</ul>
+        </div>
+        <div class="md:col-span-2">
+          <p class="font-semibold text-gray-900">${escapeHtml(translateKey('admin.orders.total'))}</p>
+          <div class="mt-2 space-y-1 text-sm">
+            <div class="flex justify-between"><span>${escapeHtml(translateKey('checkout.summary.subtotal'))}</span><span>${formatMYR(totals.subtotal)}</span></div>
+            <div class="flex justify-between"><span>${escapeHtml(translateKey('checkout.summary.shippingFee'))}</span><span>${formatMYR(totals.shipping)}</span></div>
+            <div class="flex justify-between font-semibold text-gray-900"><span>${escapeHtml(translateKey('checkout.summary.total'))}</span><span>${formatMYR(totals.total)}</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-2 pt-2">
+        <button type="button" class="shine-btn rounded-full border border-brand-red/40 bg-white px-4 py-2 text-xs font-semibold text-brand-red shadow-sm transition hover:bg-rose-50" data-order-action="copy" data-order-id="${escapeHtml(order.trackingNumber)}">${escapeHtml(translateKey('admin.orders.actions.copy'))}</button>
+        ${status === 'new' ? `<button type="button" class="shine-btn rounded-full bg-amber-500/10 px-4 py-2 text-xs font-semibold text-amber-700 hover:bg-amber-100" data-order-action="processing" data-order-id="${escapeHtml(order.trackingNumber)}">${escapeHtml(translateKey('admin.orders.actions.processing'))}</button>` : ''}
+        ${status !== 'fulfilled' ? `<button type="button" class="shine-btn rounded-full bg-brand-red px-4 py-2 text-xs font-semibold text-white shadow hover:bg-rose-600 transition" data-order-action="fulfill" data-order-id="${escapeHtml(order.trackingNumber)}">${escapeHtml(translateKey('admin.orders.actions.fulfill'))}</button>` : ''}
+        ${paymentLink ? `<a href="${escapeHtml(paymentLink)}" target="_blank" rel="noopener" class="shine-btn rounded-full border border-brand-red/40 bg-white px-4 py-2 text-xs font-semibold text-brand-red shadow-sm transition hover:bg-rose-50">${escapeHtml(translateKey('admin.orders.actions.viewPayment'))}</a>` : ''}
+      </div>
+    `;
+    return card;
+  }
+
+  function renderOrders(){
+    const list = document.getElementById('orders-list');
+    const empty = document.getElementById('orders-empty');
+    if (!list || !empty) return;
+    list.innerHTML = '';
+    if (!ordersState.length){
+      empty.classList.remove('hidden');
+      return;
+    }
+    empty.classList.add('hidden');
+    const fragment = document.createDocumentFragment();
+    ordersState.forEach(order => {
+      fragment.appendChild(buildOrderCard(order));
+    });
+    list.appendChild(fragment);
+  }
+
+  function updateOrdersBadge(){
+    const badge = document.getElementById('adminOrdersBadge');
+    if (!badge) return;
+    const count = ordersState.filter(order => order.status === 'new').length;
+    if (count > 0){
+      badge.textContent = count > 9 ? '9+' : String(count);
+      badge.classList.remove('hidden');
+    } else {
+      badge.classList.add('hidden');
+      badge.textContent = '';
+    }
+  }
+
+  function fallbackCopy(text, onSuccess){
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.setAttribute('readonly', '');
+    textarea.style.position = 'absolute';
+    textarea.style.left = '-9999px';
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+      document.execCommand('copy');
+      if (typeof onSuccess === 'function') onSuccess();
+    } catch (err){
+      console.warn('Copy fallback failed', err);
+    }
+    document.body.removeChild(textarea);
+  }
+
+  function handleCopyContact(trackingNumber){
+    const order = ordersState.find(item => item.trackingNumber === trackingNumber);
+    if (!order) return;
+    const lines = [
+      order.account?.fullName,
+      order.account?.email,
+      order.account?.phone,
+      order.shipping?.address,
+      [order.shipping?.postcode, order.shipping?.city].filter(Boolean).join(' ').trim(),
+      order.shipping?.state
+    ].filter(Boolean);
+    const payload = lines.join('\n');
+    const onSuccess = () => showToast(translateKey('admin.orders.toast.copied'));
+    if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function'){
+      navigator.clipboard.writeText(payload).then(onSuccess).catch(() => fallbackCopy(payload, onSuccess));
+    } else {
+      fallbackCopy(payload, onSuccess);
+    }
+  }
+
+  function updateOrderStatus(trackingNumber, status){
+    const current = ordersState.find(order => order.trackingNumber === trackingNumber);
+    if (!current || current.status === status) return;
+    const next = ordersState.map(order => order.trackingNumber === trackingNumber ? { ...order, status, updatedAt: Date.now() } : order);
+    setOrdersState(next);
+    const toastKey = status === 'fulfilled' ? 'admin.orders.toast.fulfilled' : 'admin.orders.toast.processing';
+    showToast(translateKey(toastKey));
+  }
+
+  function markAllOrdersFulfilled(){
+    if (!ordersState.length) return;
+    const hasPending = ordersState.some(order => order.status !== 'fulfilled');
+    if (!hasPending) return;
+    const next = ordersState.map(order => ({ ...order, status: 'fulfilled', updatedAt: Date.now() }));
+    setOrdersState(next);
+    showToast(translateKey('admin.orders.toast.markAll'));
+  }
+
+  function bindOrdersActions(){
+    if (ordersBound) return;
+    const list = document.getElementById('orders-list');
+    if (list){
+      list.addEventListener('click', event => {
+        const target = event.target.closest('[data-order-action]');
+        if (!target) return;
+        const id = target.getAttribute('data-order-id');
+        const action = target.getAttribute('data-order-action');
+        if (!id) return;
+        if (action === 'copy'){
+          handleCopyContact(id);
+        } else if (action === 'processing'){
+          updateOrderStatus(id, 'processing');
+        } else if (action === 'fulfill'){
+          updateOrderStatus(id, 'fulfilled');
+        }
+      });
+    }
+    const markAllBtn = document.getElementById('ordersMarkAll');
+    if (markAllBtn){
+      markAllBtn.addEventListener('click', markAllOrdersFulfilled);
+    }
+    ordersBound = true;
+  }
+
+  function setupOrdersListeners(){
+    bindOrdersActions();
+    if (!ordersListenersBound){
+      window.addEventListener('storage', event => {
+        if (event.key === ORDERS_KEY || event.key === ORDER_TIMESTAMP_KEY){
+          refreshOrdersFromStorage();
+        }
+      });
+      window.addEventListener('osun:new-order', event => {
+        if (!event || !event.detail) return;
+        const isNew = mergeOrder(event.detail);
+        if (isNew) showToast(translateKey('admin.orders.toast.new'));
+      });
+      ordersListenersBound = true;
+    }
+    if (typeof BroadcastChannel !== 'undefined' && !ordersChannel){
+      try {
+        ordersChannel = new BroadcastChannel(ORDER_CHANNEL);
+        ordersChannel.addEventListener('message', event => {
+          if (event && event.data && event.data.type === 'new-order'){
+            const isNew = mergeOrder(event.data.order);
+            if (isNew) showToast(translateKey('admin.orders.toast.new'));
+          }
+        });
+      } catch (err){
+        console.warn('Broadcast channel unavailable', err);
+      }
+    }
+  }
+
+  function initOrdersModule(){
+    refreshOrdersFromStorage();
+    renderOrders();
+    updateOrdersBadge();
+    setupOrdersListeners();
   }
 
   function renderHeroForm(){
@@ -825,10 +1178,47 @@
     root.appendChild(actions);
   }
 
+  function renderFooter(){
+    const wrap = document.getElementById('footer-form-wrap');
+    if (!wrap) return;
+    wrap.innerHTML = '';
+
+    const card = document.createElement('div');
+    card.className = 'rounded-2xl border border-rose-100 bg-white p-5 shadow-sm space-y-4';
+    card.appendChild(buildField({
+      label: translateKey('admin.footer.instagram'),
+      value: getValue(['footer', 'social', 'instagram']) || '',
+      onInput: value => setValue(['footer', 'social', 'instagram'], value)
+    }));
+    card.appendChild(buildField({
+      label: translateKey('admin.footer.facebook'),
+      value: getValue(['footer', 'social', 'facebook']) || '',
+      onInput: value => setValue(['footer', 'social', 'facebook'], value)
+    }));
+    card.appendChild(buildField({
+      label: translateKey('admin.footer.whatsapp'),
+      value: getValue(['footer', 'social', 'whatsapp']) || '',
+      onInput: value => setValue(['footer', 'social', 'whatsapp'], value)
+    }));
+    card.appendChild(buildField({
+      label: translateKey('admin.footer.tiktok'),
+      value: getValue(['footer', 'social', 'tiktok']) || '',
+      onInput: value => setValue(['footer', 'social', 'tiktok'], value)
+    }));
+    wrap.appendChild(card);
+
+    const actions = document.createElement('div');
+    actions.className = 'flex items-center gap-3';
+    actions.appendChild(createActionButton(translateKey('admin.footer.save'), () => persistChanges(false)));
+    wrap.appendChild(actions);
+  }
+
   function renderAllSections(){
     renderHeroForm();
     renderCategories();
     renderAbout();
+    renderFooter();
+    renderOrders();
   }
 
   function unlockAdmin(){
@@ -843,9 +1233,10 @@
     sessionStorage.setItem(SESSION_KEY, '1');
     state.draft = loadContent();
     state.initialized = true;
+    initOrdersModule();
     renderAllSections();
     bindGlobalActions();
-    showToast('Admin unlocked');
+    showToast(translateKey('admin.login.success'));
   }
 
   function bindGlobalActions(){
@@ -858,6 +1249,15 @@
       exportButton.addEventListener('click', exportContent);
     }
   }
+
+  document.addEventListener('osun:langchange', () => {
+    if (!state.initialized) return;
+    renderHeroForm();
+    renderCategories();
+    renderAbout();
+    renderFooter();
+    renderOrders();
+  });
 
   ready(() => {
     const loginForm = document.getElementById('adminLoginForm');

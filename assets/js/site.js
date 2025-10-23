@@ -1,6 +1,8 @@
 (function(){
   const LANG_KEY = 'osun-lang';
   const CART_KEY = 'osun-cart';
+  const ORDERS_KEY = 'osun-orders';
+  const ORDER_CHANNEL = 'osun-orders-channel';
 
   let aosInitialized = false;
 
@@ -11,6 +13,24 @@
       aosInitialized = true;
     }
   }
+
+  const PAYMENT_GATEWAYS = {
+    visa: {
+      label: 'Visa / MasterCard',
+      provider: 'Visa',
+      url: 'https://www.visa.com.my/'
+    },
+    fpx: {
+      label: 'FPX Online Banking',
+      provider: 'FPX',
+      url: 'https://www.mepsfpx.com.my/'
+    },
+    ewallet: {
+      label: "Touch 'n Go eWallet",
+      provider: "Touch 'n Go",
+      url: 'https://www.touchngo.com.my/'
+    }
+  };
 
   const dict = {
     en: {
@@ -132,6 +152,7 @@
       'checkout.payment.method.ewallet': 'E-wallet',
       'checkout.payment.method.ewallet.badge': 'Wallet',
       'checkout.payment.method.ewallet.desc': "GrabPay · Touch 'n Go · Boost",
+      'checkout.payment.hint': 'You will be redirected to {{provider}} to complete payment securely.',
       'checkout.payment.cardName': 'Name on card',
       'checkout.payment.cardName.placeholder': 'As shown on card',
       'checkout.payment.cardNumber': 'Card number',
@@ -139,6 +160,8 @@
       'checkout.payment.cardExpiry': 'Expiry',
       'checkout.payment.cardCvv': 'CVV',
       'checkout.payment.cardCvv.placeholder': '3-4 digits',
+      'checkout.payment.redirect': 'Opening {{provider}} secure payment…',
+      'checkout.payment.popupBlocked': 'Please allow pop-ups for {{provider}} to continue.',
       'checkout.payment.next': 'Review order',
       'checkout.review.title': 'Confirm your order',
       'checkout.review.desc': 'Double-check your information below. Submit to generate your tracking status instantly.',
@@ -148,6 +171,8 @@
       'checkout.summary.contact': 'Contact',
       'checkout.summary.shipping': 'Shipping',
       'checkout.summary.payment': 'Payment',
+      'checkout.summary.paymentProvider': 'Payment provider',
+      'checkout.summary.paymentProviderLink': 'Open payment portal',
       'checkout.summary.items': 'Order summary',
       'checkout.summary.method.visa': 'Visa / Mastercard',
       'checkout.summary.method.fpx': 'Online banking (FPX)',
@@ -325,6 +350,37 @@
       'admin.nav.hero': 'Homepage',
       'admin.nav.categories': 'Categories',
       'admin.nav.about': 'About page',
+      'admin.nav.orders': 'Orders',
+      'admin.nav.footer': 'Footer & socials',
+      'admin.orders.heading': 'Orders & notifications',
+      'admin.orders.desc': 'Review new orders, track fulfilment status, and copy customer details when needed.',
+      'admin.orders.latest': 'Latest orders',
+      'admin.orders.empty': 'No orders have been placed yet.',
+      'admin.orders.markAll': 'Mark all as fulfilled',
+      'admin.orders.status.new': 'New',
+      'admin.orders.status.processing': 'Processing',
+      'admin.orders.status.fulfilled': 'Fulfilled',
+      'admin.orders.customer': 'Customer',
+      'admin.orders.shipping': 'Shipping',
+      'admin.orders.payment': 'Payment',
+      'admin.orders.items': 'Items',
+      'admin.orders.total': 'Order total',
+      'admin.orders.actions.processing': 'Mark as processing',
+      'admin.orders.actions.fulfill': 'Mark as fulfilled',
+      'admin.orders.actions.copy': 'Copy contact',
+      'admin.orders.actions.viewPayment': 'Open payment portal',
+      'admin.orders.toast.fulfilled': 'Order marked as fulfilled',
+      'admin.orders.toast.processing': 'Order moved to processing',
+      'admin.orders.toast.copied': 'Contact info copied',
+      'admin.orders.toast.new': 'New order received',
+      'admin.orders.toast.markAll': 'All orders marked as fulfilled',
+      'admin.footer.heading': 'Footer & social links',
+      'admin.footer.desc': 'Update the social media and messaging links shown in the storefront footer.',
+      'admin.footer.instagram': 'Instagram URL',
+      'admin.footer.facebook': 'Facebook URL',
+      'admin.footer.whatsapp': 'WhatsApp link',
+      'admin.footer.tiktok': 'TikTok URL',
+      'admin.footer.save': 'Save footer links',
       'admin.about.heading': 'About page',
       'admin.about.desc': 'Refresh founder stories, milestones, and community invitations.',
       'admin.about.heroSection': 'Hero intro',
@@ -475,6 +531,7 @@
       'checkout.payment.method.ewallet': '電子錢包',
       'checkout.payment.method.ewallet.badge': '錢包',
       'checkout.payment.method.ewallet.desc': "GrabPay · Touch 'n Go · Boost",
+      'checkout.payment.hint': '將帶您前往 {{provider}} 安全付款頁面完成交易。',
       'checkout.payment.cardName': '持卡人姓名',
       'checkout.payment.cardName.placeholder': '與信用卡相同的姓名',
       'checkout.payment.cardNumber': '信用卡卡號',
@@ -482,6 +539,8 @@
       'checkout.payment.cardExpiry': '有效期限',
       'checkout.payment.cardCvv': '安全碼',
       'checkout.payment.cardCvv.placeholder': '3-4 位數',
+      'checkout.payment.redirect': '正在開啟 {{provider}} 安全付款頁面…',
+      'checkout.payment.popupBlocked': '請允許 {{provider}} 跳出視窗以繼續付款。',
       'checkout.payment.next': '檢視訂單',
       'checkout.review.title': '確認你的訂單',
       'checkout.review.desc': '再次檢查以下資訊，送出後立即取得物流追蹤。',
@@ -491,6 +550,8 @@
       'checkout.summary.contact': '聯絡方式',
       'checkout.summary.shipping': '配送資訊',
       'checkout.summary.payment': '付款方式',
+      'checkout.summary.paymentProvider': '付款平臺',
+      'checkout.summary.paymentProviderLink': '開啟付款平臺',
       'checkout.summary.items': '訂單摘要',
       'checkout.summary.method.visa': '信用卡（Visa / Mastercard）',
       'checkout.summary.method.fpx': '線上銀行（FPX）',
@@ -665,6 +726,37 @@
       'admin.nav.hero': '首頁',
       'admin.nav.categories': '分類',
       'admin.nav.about': '關於頁面',
+      'admin.nav.orders': '訂單',
+      'admin.nav.footer': '頁尾與社群',
+      'admin.orders.heading': '訂單與通知',
+      'admin.orders.desc': '檢視最新訂單、更新出貨狀態，並複製顧客資料。',
+      'admin.orders.latest': '最新訂單',
+      'admin.orders.empty': '目前尚未有訂單。',
+      'admin.orders.markAll': '全部標記為已完成',
+      'admin.orders.status.new': '新訂單',
+      'admin.orders.status.processing': '處理中',
+      'admin.orders.status.fulfilled': '已完成',
+      'admin.orders.customer': '顧客',
+      'admin.orders.shipping': '運送',
+      'admin.orders.payment': '付款',
+      'admin.orders.items': '商品',
+      'admin.orders.total': '訂單金額',
+      'admin.orders.actions.processing': '標記為處理中',
+      'admin.orders.actions.fulfill': '標記為已完成',
+      'admin.orders.actions.copy': '複製聯絡資訊',
+      'admin.orders.actions.viewPayment': '開啟付款平臺',
+      'admin.orders.toast.fulfilled': '訂單已標記為完成',
+      'admin.orders.toast.processing': '訂單已標記為處理中',
+      'admin.orders.toast.copied': '已複製聯絡資訊',
+      'admin.orders.toast.new': '收到新訂單',
+      'admin.orders.toast.markAll': '所有訂單已標記為完成',
+      'admin.footer.heading': '頁尾與社群連結',
+      'admin.footer.desc': '設定頁尾顯示的社群與通訊連結。',
+      'admin.footer.instagram': 'Instagram 連結',
+      'admin.footer.facebook': 'Facebook 連結',
+      'admin.footer.whatsapp': 'WhatsApp 連結',
+      'admin.footer.tiktok': 'TikTok 連結',
+      'admin.footer.save': '儲存頁尾連結',
       'admin.about.heading': '關於頁面',
       'admin.about.desc': '更新創辦人故事、里程碑與社群邀請。',
       'admin.about.heroSection': '品牌開場',
@@ -711,7 +803,7 @@
   };
 
   const BADGE_THEMES = {
-    rose: { badge: 'bg-brand.red text-white', border: 'border-rose-100' },
+    rose: { badge: 'bg-brand-red text-white', border: 'border-rose-100' },
     amber: { badge: 'bg-amber-500 text-white', border: 'border-amber-100' },
     emerald: { badge: 'bg-emerald-500 text-white', border: 'border-emerald-100' },
     slate: { badge: 'bg-slate-700 text-white', border: 'border-slate-100' },
@@ -861,7 +953,7 @@
       <div class="p-6 space-y-3">
         <h3 class="text-xl font-semibold text-gray-900">${escapeHtml(name)}</h3>
         <p class="text-sm text-gray-600">${escapeHtml(description)}</p>
-        <div class="flex items-center justify-between text-sm font-semibold text-brand.red">
+        <div class="flex items-center justify-between text-sm font-semibold text-brand-red">
           <span>${escapeHtml(price)}</span>
           <span>${escapeHtml(badgeLabel)}</span>
         </div>
@@ -946,17 +1038,33 @@
     setLinkKey('about.community.ctaLink', community.ctaLink || 'index.html#visit');
   }
 
+  function applyFooterContent(footerConfig){
+    const social = footerConfig?.social || {};
+    const defaults = (window.OSUN_CONTENT && window.OSUN_CONTENT.DEFAULT && window.OSUN_CONTENT.DEFAULT.footer?.social) || {};
+    document.querySelectorAll('[data-social-link]').forEach(anchor => {
+      const key = anchor.getAttribute('data-social-link');
+      if (!key) return;
+      const href = social[key] || defaults[key] || '#';
+      anchor.setAttribute('href', href);
+      anchor.setAttribute('rel', 'noopener noreferrer');
+      if (!anchor.getAttribute('target')){
+        anchor.setAttribute('target', '_blank');
+      }
+    });
+  }
+
   function applyContent(lang){
     const content = getContent();
     applyHeroContent(content.hero, lang);
     applyCategoriesContent(content.categories, lang);
     applyAboutContent(content.about, lang);
+    applyFooterContent(content.footer);
   }
 
   const PRODUCTS = {
-    p1: { id: 'p1', price: 279, image: 'product1.svg', i18nNameKey: 'prod1.name' },
-    p2: { id: 'p2', price: 169, image: 'dress_pink.svg', i18nNameKey: 'prod2.name' },
-    p3: { id: 'p3', price: 329, image: 'model1.svg', i18nNameKey: 'prod3.name' }
+    p1: { id: 'p1', price: 279, image: 'assets/images/product1.svg', i18nNameKey: 'prod1.name' },
+    p2: { id: 'p2', price: 169, image: 'assets/images/dress_pink.svg', i18nNameKey: 'prod2.name' },
+    p3: { id: 'p3', price: 329, image: 'assets/images/model1.svg', i18nNameKey: 'prod3.name' }
   };
 
   function getSavedLang(){
@@ -1043,6 +1151,41 @@
 
   function calcSubtotal(cart){
     return cart.reduce((sum, item) => sum + (item.qty * (PRODUCTS[item.id]?.price || 0)), 0);
+  }
+
+  function loadOrders(){
+    try {
+      const raw = localStorage.getItem(ORDERS_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch (err){
+      console.warn('Failed to load orders', err);
+      return [];
+    }
+  }
+
+  function saveOrders(list){
+    localStorage.setItem(ORDERS_KEY, JSON.stringify(list));
+    try {
+      localStorage.setItem(`${ORDERS_KEY}:updated`, String(Date.now()));
+    } catch (err){
+      console.warn('Failed to timestamp orders', err);
+    }
+  }
+
+  function appendOrderRecord(record){
+    const orders = loadOrders();
+    orders.unshift(record);
+    saveOrders(orders);
+    if (typeof BroadcastChannel !== 'undefined'){
+      try {
+        const channel = new BroadcastChannel(ORDER_CHANNEL);
+        channel.postMessage({ type: 'new-order', order: record });
+        channel.close();
+      } catch (err){
+        console.warn('Broadcast channel unavailable', err);
+      }
+    }
+    window.dispatchEvent(new CustomEvent('osun:new-order', { detail: record }));
   }
 
   function updateCartCount(){
@@ -1167,10 +1310,14 @@
     setTimeout(() => wrap.classList.add('hidden'), 250);
   }
 
-  function showToast(message){
+  function showToast(message, tone){
     const toast = document.createElement('div');
     toast.textContent = message;
-    toast.className = 'fixed left-1/2 -translate-x-1/2 top-5 z-[60] bg-gray-900 text-white text-sm px-4 py-2 rounded-full shadow-elev opacity-0';
+    const baseClass = 'fixed left-1/2 -translate-x-1/2 top-5 z-[60] text-sm px-4 py-2 rounded-full shadow-elev opacity-0';
+    const toneClass = tone === 'error'
+      ? 'bg-red-600 text-white'
+      : 'bg-gray-900 text-white';
+    toast.className = `${baseClass} ${toneClass}`;
     document.body.appendChild(toast);
     requestAnimationFrame(() => {
       toast.style.transition = 'opacity .25s, transform .25s';
@@ -1193,10 +1340,20 @@
     const stepElements = Object.fromEntries(stepsOrder.map(step => [step, root.querySelector(`[data-checkout-step="${step}"]`)]));
     const CHECKOUT_STORAGE_KEY = 'osun-checkout-state';
     const ORDER_STORAGE_KEY = 'osun-checkout-order';
+    const ORDER_DETAIL_STORAGE_KEY = 'osun-checkout-order-detail';
     const defaultState = {
       account: { fullName: '', phone: '', email: '', password: '', notes: '' },
       shipping: { address: '', city: '', state: '', postcode: '', delivery: 'standard' },
-      payment: { method: 'visa', cardName: '', cardNumber: '', cardExpiry: '', cardCvv: '' }
+      payment: {
+        method: 'visa',
+        cardName: '',
+        cardNumber: '',
+        cardExpiry: '',
+        cardCvv: '',
+        providerLabel: PAYMENT_GATEWAYS.visa.label,
+        providerName: PAYMENT_GATEWAYS.visa.provider,
+        gatewayUrl: PAYMENT_GATEWAYS.visa.url
+      }
     };
 
     function cloneDefaults(){
@@ -1237,9 +1394,24 @@
       sessionStorage.setItem(ORDER_STORAGE_KEY, JSON.stringify(order));
     }
 
+    function loadOrderRecord(){
+      try {
+        const raw = sessionStorage.getItem(ORDER_DETAIL_STORAGE_KEY);
+        return raw ? JSON.parse(raw) : null;
+      } catch (err){
+        console.warn('Failed to load checkout order detail', err);
+        return null;
+      }
+    }
+
+    function saveOrderRecordForSession(record){
+      sessionStorage.setItem(ORDER_DETAIL_STORAGE_KEY, JSON.stringify(record));
+    }
+
     let state = loadState();
     let currentStepIndex = 0;
     let currentOrder = loadOrder();
+    let latestOrderRecord = loadOrderRecord();
 
     if (!state.account.fullName || !state.account.email){
       currentStepIndex = 0;
@@ -1267,6 +1439,7 @@
     const cardInputs = cardFields ? Array.from(cardFields.querySelectorAll('input')) : [];
     const cardNumberInput = document.getElementById('checkoutCardNumber');
     const cardExpiryInput = document.getElementById('checkoutCardExpiry');
+    const paymentHint = document.getElementById('checkoutPaymentHint');
 
     function updateProgress(){
       progressItems.forEach((item, index) => {
@@ -1322,6 +1495,7 @@
       setInputValue('checkoutCardExpiry', state.payment.cardExpiry);
       setInputValue('checkoutCardCvv', state.payment.cardCvv);
       toggleCardFields();
+      updatePaymentHint();
     }
 
     function toggleCardFields(){
@@ -1335,6 +1509,17 @@
           input.removeAttribute('required');
         }
       });
+    }
+
+    function updatePaymentHint(){
+      if (!paymentHint) return;
+      const gateway = PAYMENT_GATEWAYS[state.payment.method] || null;
+      if (gateway){
+        paymentHint.textContent = translate('checkout.payment.hint', { provider: gateway.provider || gateway.label });
+        paymentHint.classList.remove('hidden');
+      } else {
+        paymentHint.classList.add('hidden');
+      }
     }
 
     function handleAccountSubmit(event){
@@ -1371,6 +1556,17 @@
       return `${cleaned.slice(0,2)}/${cleaned.slice(2)}`;
     }
 
+    function openGatewayWindow(gateway){
+      if (!gateway || !gateway.url) return;
+      const providerName = gateway.provider || gateway.label || '';
+      const win = window.open(gateway.url, '_blank', 'noopener');
+      if (win){
+        showToast(translate('checkout.payment.redirect', { provider: providerName }));
+      } else {
+        showToast(translate('checkout.payment.popupBlocked', { provider: providerName }), 'error');
+      }
+    }
+
     function handlePaymentSubmit(event){
       event.preventDefault();
       const formData = new FormData(paymentForm);
@@ -1386,7 +1582,15 @@
         state.payment.cardExpiry = '';
         state.payment.cardCvv = '';
       }
+      const gateway = PAYMENT_GATEWAYS[state.payment.method] || null;
+      state.payment.providerLabel = gateway?.label || '';
+      state.payment.providerName = gateway?.provider || state.payment.providerLabel || '';
+      state.payment.gatewayUrl = gateway?.url || '';
       saveState();
+      updatePaymentHint();
+      if (gateway?.url){
+        openGatewayWindow(gateway);
+      }
       renderSummary();
       showStep(3);
     }
@@ -1399,62 +1603,141 @@
     function renderSummary(){
       if (!summaryEl) return;
       const cart = loadCart();
-      if (!cart.length){
+      let summaryData = null;
+      if (cart.length){
+        const subtotal = calcSubtotal(cart);
+        const shippingFee = computeShippingFee();
+        const total = subtotal + shippingFee;
+        const paymentLabel = translate(`checkout.summary.method.${state.payment.method}`);
+        const deliveryLabel = translate(`checkout.shipping.speed.${state.shipping.delivery}`);
+        summaryData = {
+          account: {
+            name: state.account.fullName,
+            email: state.account.email
+          },
+          contact: {
+            phone: state.account.phone,
+            notes: state.account.notes
+          },
+          shipping: {
+            lines: [
+              state.shipping.address,
+              [state.shipping.postcode, state.shipping.city].filter(Boolean).join(' ').trim(),
+              state.shipping.state
+            ].filter(Boolean),
+            deliveryLabel
+          },
+          payment: {
+            label: paymentLabel,
+            providerLabel: state.payment.providerLabel || '',
+            providerLink: state.payment.gatewayUrl || ''
+          },
+          items: cart.map(item => {
+            const product = PRODUCTS[item.id];
+            if (!product) return null;
+            return {
+              name: getProductName(product),
+              quantity: item.qty,
+              total: item.qty * (product.price || 0)
+            };
+          }).filter(Boolean),
+          totals: {
+            subtotal,
+            shipping: shippingFee,
+            total
+          }
+        };
+      } else if (latestOrderRecord){
+        const record = latestOrderRecord;
+        const paymentMethod = record.payment?.method || 'visa';
+        summaryData = {
+          account: {
+            name: record.account?.fullName || '',
+            email: record.account?.email || ''
+          },
+          contact: {
+            phone: record.account?.phone || '',
+            notes: record.account?.notes || ''
+          },
+          shipping: {
+            lines: [
+              record.shipping?.address || '',
+              [record.shipping?.postcode, record.shipping?.city].filter(Boolean).join(' ').trim(),
+              record.shipping?.state || ''
+            ].filter(Boolean),
+            deliveryLabel: record.shipping?.deliveryLabel || translate(`checkout.shipping.speed.${record.delivery || 'standard'}`)
+          },
+          payment: {
+            label: translate(`checkout.summary.method.${paymentMethod}`),
+            providerLabel: record.payment?.providerLabel || '',
+            providerLink: record.payment?.gatewayUrl || ''
+          },
+          items: (record.items || []).map(item => ({
+            name: item.name || getProductName(PRODUCTS[item.id] || {}),
+            quantity: item.quantity || item.qty || 1,
+            total: typeof item.total === 'number' ? item.total : (item.quantity || item.qty || 1) * (item.unitPrice || 0)
+          })),
+          totals: {
+            subtotal: record.totals?.subtotal ?? 0,
+            shipping: record.totals?.shipping ?? 0,
+            total: record.totals?.total ?? 0
+          }
+        };
+      }
+
+      if (!summaryData){
         summaryEl.innerHTML = `<div class="rounded-2xl border border-rose-100 bg-rose-50/70 p-4 text-sm text-gray-600">${translate('checkout.summary.empty')}</div>`;
         return;
       }
-      const items = cart.map(item => {
-        const product = PRODUCTS[item.id];
-        if (!product) return '';
-        const total = formatMYR(item.qty * (product.price || 0));
-        return `<div class="flex items-center justify-between gap-4">
+
+      summaryEl.innerHTML = buildSummaryMarkup(summaryData);
+    }
+
+    function buildSummaryMarkup(summary){
+      const itemsHtml = summary.items.map(item => `
+        <div class="flex items-center justify-between gap-4">
           <div>
-            <p class="font-semibold text-gray-900">${escapeHtml(getProductName(product))}</p>
-            <p class="text-xs text-gray-500">× ${item.qty}</p>
+            <p class="font-semibold text-gray-900">${escapeHtml(item.name || '')}</p>
+            <p class="text-xs text-gray-500">× ${item.quantity}</p>
           </div>
-          <p class="text-sm font-medium text-gray-800">${total}</p>
-        </div>`;
-      }).join('');
-
-      const subtotal = calcSubtotal(cart);
-      const shippingFee = computeShippingFee();
-      const total = subtotal + shippingFee;
-      const paymentLabel = translate(`checkout.summary.method.${state.payment.method}`);
-      const deliveryLabel = translate(`checkout.shipping.speed.${state.shipping.delivery}`);
-
-      summaryEl.innerHTML = `
+          <p class="text-sm font-medium text-gray-800">${formatMYR(item.total || 0)}</p>
+        </div>
+      `).join('');
+      const providerLink = summary.payment.providerLink ? escapeHtml(summary.payment.providerLink) : '';
+      return `
         <div class="grid gap-4">
           <div class="rounded-2xl border border-gray-200 p-4 text-sm text-gray-700">
             <h4 class="text-sm font-semibold text-gray-900 mb-1">${translate('checkout.summary.account')}</h4>
-            <p>${escapeHtml(state.account.fullName)}</p>
-            <p>${escapeHtml(state.account.email)}</p>
+            <p>${escapeHtml(summary.account.name || '')}</p>
+            <p>${escapeHtml(summary.account.email || '')}</p>
           </div>
           <div class="rounded-2xl border border-gray-200 p-4 text-sm text-gray-700">
             <h4 class="text-sm font-semibold text-gray-900 mb-1">${translate('checkout.summary.contact')}</h4>
-            <p>${escapeHtml(state.account.phone)}</p>
-            ${state.account.notes ? `<p class="mt-1 text-xs text-gray-500">${escapeHtml(state.account.notes)}</p>` : ''}
+            <p>${escapeHtml(summary.contact.phone || '')}</p>
+            ${summary.contact.notes ? `<p class="mt-1 text-xs text-gray-500">${escapeHtml(summary.contact.notes)}</p>` : ''}
           </div>
           <div class="rounded-2xl border border-gray-200 p-4 text-sm text-gray-700">
             <h4 class="text-sm font-semibold text-gray-900 mb-1">${translate('checkout.summary.shipping')}</h4>
-            <p>${escapeHtml(state.shipping.address)}</p>
-            <p>${escapeHtml([state.shipping.postcode, state.shipping.city].filter(Boolean).join(' '))}</p>
-            <p>${escapeHtml(state.shipping.state)}</p>
-            <p class="mt-1 text-xs text-gray-500">${deliveryLabel}</p>
+            ${summary.shipping.lines.map(line => `<p>${escapeHtml(line)}</p>`).join('')}
+            <p class="mt-1 text-xs text-gray-500">${escapeHtml(summary.shipping.deliveryLabel || '')}</p>
           </div>
           <div class="rounded-2xl border border-gray-200 p-4 text-sm text-gray-700">
             <h4 class="text-sm font-semibold text-gray-900 mb-1">${translate('checkout.summary.payment')}</h4>
-            <p>${paymentLabel}</p>
+            <p>${escapeHtml(summary.payment.label || '')}</p>
+            ${summary.payment.providerLabel ? `<p class="mt-1 text-xs text-gray-500">${translate('checkout.summary.paymentProvider')}: ${escapeHtml(summary.payment.providerLabel)}</p>` : ''}
+            ${providerLink ? `<a class="mt-1 inline-flex items-center text-xs font-semibold text-brand-red hover:underline" href="${providerLink}" target="_blank" rel="noopener">${translate('checkout.summary.paymentProviderLink')}</a>` : ''}
           </div>
           <div class="rounded-2xl border border-gray-200 p-4 text-sm text-gray-700">
             <h4 class="text-sm font-semibold text-gray-900 mb-3">${translate('checkout.summary.items')}</h4>
-            <div class="space-y-2">${items}</div>
+            <div class="space-y-2">${itemsHtml}</div>
             <div class="mt-4 border-t border-gray-200 pt-3 space-y-2 text-sm">
-              <div class="flex justify-between"><span>${translate('checkout.summary.subtotal')}</span><span>${formatMYR(subtotal)}</span></div>
-              <div class="flex justify-between"><span>${translate('checkout.summary.shippingFee')}</span><span>${formatMYR(shippingFee)}</span></div>
-              <div class="flex justify-between font-semibold text-gray-900"><span>${translate('checkout.summary.total')}</span><span>${formatMYR(total)}</span></div>
+              <div class="flex justify-between"><span>${translate('checkout.summary.subtotal')}</span><span>${formatMYR(summary.totals.subtotal || 0)}</span></div>
+              <div class="flex justify-between"><span>${translate('checkout.summary.shippingFee')}</span><span>${formatMYR(summary.totals.shipping || 0)}</span></div>
+              <div class="flex justify-between font-semibold text-gray-900"><span>${translate('checkout.summary.total')}</span><span>${formatMYR(summary.totals.total || 0)}</span></div>
             </div>
           </div>
-        </div>`;
+        </div>
+      `;
     }
 
     function formatDateTime(ts){
@@ -1496,7 +1779,7 @@
         const noteKey = stage.key === 'pickup' ? 'checkout.tracking.stage.note.pickup' : `checkout.tracking.stage.note.${stage.key}`;
         const reached = index === 0;
         return `<div class="relative pl-10 timeline-item">
-          <div class="absolute left-0 top-1 h-3 w-3 rounded-full ${reached ? 'bg-brand.red' : 'bg-gray-300'}"></div>
+          <div class="absolute left-0 top-1 h-3 w-3 rounded-full ${reached ? 'bg-brand-red' : 'bg-gray-300'}"></div>
           <p class="text-sm font-semibold text-gray-900">${translate(nameKey)}</p>
           <p class="text-xs text-gray-500">${formatDateTime(timestamp)}</p>
           <p class="mt-1 text-sm text-gray-600">${translate(noteKey)}</p>
@@ -1520,9 +1803,60 @@
         delivery: state.shipping.delivery,
         eta: computeEtaTimestamp()
       };
+      const subtotal = calcSubtotal(cart);
+      const shippingFee = computeShippingFee();
+      const total = subtotal + shippingFee;
+      const gateway = PAYMENT_GATEWAYS[state.payment.method] || null;
+      const orderRecord = {
+        id: order.trackingNumber,
+        trackingNumber: order.trackingNumber,
+        createdAt: order.createdAt,
+        eta: order.eta,
+        status: 'new',
+        delivery: state.shipping.delivery,
+        account: {
+          fullName: state.account.fullName,
+          email: state.account.email,
+          phone: state.account.phone,
+          notes: state.account.notes
+        },
+        shipping: {
+          address: state.shipping.address,
+          city: state.shipping.city,
+          state: state.shipping.state,
+          postcode: state.shipping.postcode,
+          deliveryLabel: translate(`checkout.shipping.speed.${state.shipping.delivery}`)
+        },
+        payment: {
+          method: state.payment.method,
+          providerLabel: state.payment.providerLabel || gateway?.label || '',
+          providerName: state.payment.providerName || gateway?.provider || '',
+          gatewayUrl: state.payment.gatewayUrl || gateway?.url || ''
+        },
+        items: cart.map(item => {
+          const product = PRODUCTS[item.id];
+          const name = product ? getProductName(product) : item.id;
+          const price = product?.price || 0;
+          return {
+            id: item.id,
+            name,
+            quantity: item.qty,
+            unitPrice: price,
+            total: item.qty * price
+          };
+        }),
+        totals: {
+          subtotal,
+          shipping: shippingFee,
+          total
+        }
+      };
       currentOrder = order;
       saveOrder(order);
+      latestOrderRecord = orderRecord;
+      saveOrderRecordForSession(orderRecord);
       renderTracking(order);
+      appendOrderRecord(orderRecord);
       saveCart([]);
       updateCartCount();
       renderCart();
@@ -1560,6 +1894,7 @@
       radio.addEventListener('change', event => {
         state.payment.method = event.target.value;
         toggleCardFields();
+        updatePaymentHint();
       });
     });
     if (placeOrderBtn) placeOrderBtn.addEventListener('click', handlePlaceOrder);
@@ -1576,6 +1911,7 @@
       updateProgress();
       renderSummary();
       if (currentOrder) renderTracking(currentOrder);
+      updatePaymentHint();
     });
   }
 
@@ -1585,6 +1921,17 @@
 
     document.querySelectorAll('.add-to-cart').forEach(btn => {
       btn.addEventListener('click', () => addToCart(btn.getAttribute('data-product-id')));
+    });
+
+    document.querySelectorAll('[data-scroll-target]').forEach(trigger => {
+      trigger.addEventListener('click', () => {
+        const selector = trigger.getAttribute('data-scroll-target');
+        if (!selector) return;
+        const target = document.querySelector(selector);
+        if (target){
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
     });
 
     document.getElementById('cart-open')?.addEventListener('click', openCart);

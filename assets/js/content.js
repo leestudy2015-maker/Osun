@@ -552,6 +552,14 @@
         },
         ctaLink: 'index.html#visit'
       }
+    },
+    footer: {
+      social: {
+        instagram: 'https://www.instagram.com/osunboutique',
+        facebook: 'https://www.facebook.com/osunboutique',
+        whatsapp: 'https://wa.me/60123456789',
+        tiktok: 'https://www.tiktok.com/@osunboutique'
+      }
     }
   };
 
