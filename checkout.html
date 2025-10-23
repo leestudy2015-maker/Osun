@@ -9,8 +9,8 @@
   <meta property="og:title" content="Osun Beauty | Secure Checkout" />
   <meta property="og:description" content="Sign in, complete your details, pay with your preferred method, and track your glow delivery." />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="assets/images/hero.jpg" />
-  <meta property="og:image" content="hero.jpg" />
+  <meta property="og:image" content="assets/images/hero.svg" />
+  <meta property="og:image" content="hero.svg" />
   <meta property="og:url" content="https://osun.example.com/checkout" />
 
   <script src="https://cdn.tailwindcss.com"></script>
@@ -30,35 +30,20 @@
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <link rel="stylesheet" href="assets/css/site.css" />
-  <style>
-    html { scroll-behavior: smooth; }
-    .shine-btn{ position:relative; overflow:hidden; }
-    .shine-btn::after{
-      content:''; position:absolute; top:0; left:-75%; width:50%; height:100%;
-      background:linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.5) 50%, rgba(255,255,255,0) 100%);
-      transform:skewX(-20deg); transition:.9s;
-    }
-    .shine-btn:hover::after{ left:125%; }
-    .mask { background: rgba(0,0,0,.35); backdrop-filter: saturate(120%) blur(1px); }
-    .checkout-step-active{ display:block; }
-    .checkout-step{ display:none; }
-    .timeline-line::before{ content:''; position:absolute; left:12px; top:0; bottom:0; width:2px; background:rgba(225,29,72,0.15); }
-    .timeline-item::before{ content:''; position:absolute; left:8px; top:0.5rem; width:10px; height:10px; border-radius:9999px; background:#E11D48; box-shadow:0 0 0 4px rgba(225,29,72,0.12); }
-  </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
   <header class="sticky top-0 z-40 bg-white/85 backdrop-blur border-b">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between" data-aos="fade-down">
       <a href="index.html" class="flex items-center gap-2" aria-label="Osun home">
-        <span class="h-8 w-8 rounded-full bg-brand.red inline-block shadow-elev"></span>
-        <span class="text-xl sm:text-2xl font-extrabold tracking-tight text-brand.red">Osun Beauty &amp; Boutique</span>
+        <span class="h-8 w-8 rounded-full bg-brand-red inline-block shadow-elev"></span>
+        <span class="text-xl sm:text-2xl font-extrabold tracking-tight text-brand-red">Osun Beauty &amp; Boutique</span>
       </a>
       <nav class="hidden md:flex items-center gap-6" aria-label="Primary">
-        <a href="index.html#shop" class="hover:text-brand.yellow transition" data-i18n="nav.shop">Shop</a>
-        <a href="categories.html" class="hover:text-brand.yellow transition" data-i18n="nav.categories">Categories</a>
-        <a href="index.html#beauty" class="hover:text-brand.yellow transition" data-i18n="nav.beauty">Beauty</a>
-        <a href="about.html" class="hover:text-brand.yellow transition" data-i18n="nav.about">About</a>
-        <a href="admin.html" class="hover:text-brand.yellow transition" data-i18n="nav.admin">Admin</a>
+        <a href="index.html#shop" class="hover:text-brand-yellow transition" data-i18n="nav.shop">Shop</a>
+        <a href="categories.html" class="hover:text-brand-yellow transition" data-i18n="nav.categories">Categories</a>
+        <a href="index.html#beauty" class="hover:text-brand-yellow transition" data-i18n="nav.beauty">Beauty</a>
+        <a href="about.html" class="hover:text-brand-yellow transition" data-i18n="nav.about">About</a>
+        <a href="admin.html" class="hover:text-brand-yellow transition" data-i18n="nav.admin">Admin</a>
       </nav>
       <div class="flex items-center gap-2">
         <button id="lang-zh" class="px-3 py-1 rounded-full border hover:shadow-elev transition text-sm">中文</button>
@@ -69,7 +54,7 @@
             <circle cx="20" cy="21" r="1"></circle>
             <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
           </svg>
-          <span id="cart-count" class="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 text-xs rounded-full bg-brand.red text-white grid place-items-center">0</span>
+          <span id="cart-count" class="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 text-xs rounded-full bg-brand-red text-white grid place-items-center">0</span>
         </button>
         <button id="menu-toggle" class="md:hidden p-2 rounded-lg border hover:shadow-elev" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
           <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
@@ -90,7 +75,7 @@
   <main class="pt-24 pb-20">
     <section class="px-6">
       <div class="max-w-5xl mx-auto rounded-3xl bg-white shadow-xl border border-rose-100/80 p-8 md:p-12" data-aos="fade-up">
-        <span class="inline-flex items-center justify-center rounded-full bg-rose-100 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-brand.red" data-i18n="checkout.hero.tag">Secure checkout</span>
+        <span class="inline-flex items-center justify-center rounded-full bg-rose-100 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-brand-red" data-i18n="checkout.hero.tag">Secure checkout</span>
         <h1 class="mt-4 text-3xl md:text-4xl font-bold text-gray-900" data-i18n="checkout.hero.title">Finish your order in three mindful steps.</h1>
         <p class="mt-3 text-gray-600 md:text-lg" data-i18n="checkout.hero.subtitle">Sign in, fill in your contact details, choose a payment method, and follow your glow parcel on its way to you.</p>
         <div class="mt-6 flex flex-wrap gap-3 text-sm text-gray-600" data-i18n="checkout.hero.secure">All payments are encrypted. Card data is never stored.</div>
@@ -104,19 +89,19 @@
           <p class="mt-2 text-sm text-gray-600" data-i18n="checkout.progress.desc">Follow the guided steps below. You can return to previous sections anytime.</p>
           <ol id="checkout-progress" class="mt-6 grid gap-4 md:grid-cols-4 text-sm">
             <li class="rounded-2xl border border-rose-100 px-4 py-3 flex flex-col gap-1" data-step="0">
-              <span class="text-xs font-semibold uppercase tracking-wide text-brand.red" data-i18n="checkout.progress.account">Account</span>
+              <span class="text-xs font-semibold uppercase tracking-wide text-brand-red" data-i18n="checkout.progress.account">Account</span>
               <span data-i18n="checkout.progress.account.desc">Create profile</span>
             </li>
             <li class="rounded-2xl border border-rose-100 px-4 py-3 flex flex-col gap-1" data-step="1">
-              <span class="text-xs font-semibold uppercase tracking-wide text-brand.red" data-i18n="checkout.progress.shipping">Shipping</span>
+              <span class="text-xs font-semibold uppercase tracking-wide text-brand-red" data-i18n="checkout.progress.shipping">Shipping</span>
               <span data-i18n="checkout.progress.shipping.desc">Address &amp; delivery</span>
             </li>
             <li class="rounded-2xl border border-rose-100 px-4 py-3 flex flex-col gap-1" data-step="2">
-              <span class="text-xs font-semibold uppercase tracking-wide text-brand.red" data-i18n="checkout.progress.payment">Payment</span>
+              <span class="text-xs font-semibold uppercase tracking-wide text-brand-red" data-i18n="checkout.progress.payment">Payment</span>
               <span data-i18n="checkout.progress.payment.desc">Select method</span>
             </li>
             <li class="rounded-2xl border border-rose-100 px-4 py-3 flex flex-col gap-1" data-step="3">
-              <span class="text-xs font-semibold uppercase tracking-wide text-brand.red" data-i18n="checkout.progress.review">Confirm</span>
+              <span class="text-xs font-semibold uppercase tracking-wide text-brand-red" data-i18n="checkout.progress.review">Confirm</span>
               <span data-i18n="checkout.progress.review.desc">Review &amp; track</span>
             </li>
           </ol>
@@ -129,35 +114,35 @@
             <div class="mt-8 grid gap-6 lg:grid-cols-2">
               <div class="rounded-3xl border border-rose-100 bg-rose-50/70 p-6 md:p-8 flex flex-col gap-4">
                 <div>
-                  <p class="text-xs font-semibold uppercase tracking-[0.35em] text-brand.red" data-i18n="checkout.login.tag">Member access</p>
+                  <p class="text-xs font-semibold uppercase tracking-[0.35em] text-brand-red" data-i18n="checkout.login.tag">Member access</p>
                   <h4 class="mt-2 text-xl font-semibold text-gray-900" data-i18n="checkout.login.title">Member sign in</h4>
                   <p class="text-sm text-gray-600" data-i18n="checkout.login.desc">Sign in to load your saved addresses and orders.</p>
                 </div>
                 <form id="checkout-login-form" class="space-y-4" autocomplete="on">
                   <div>
                     <label for="checkoutLoginEmail" class="block text-sm font-semibold text-gray-700" data-i18n="checkout.login.email">Email address</label>
-                    <input id="checkoutLoginEmail" name="loginEmail" type="email" class="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 focus:border-brand.red focus:outline-none" data-i18n-placeholder="checkout.login.email.placeholder" required />
+                    <input id="checkoutLoginEmail" name="loginEmail" type="email" class="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 focus:border-brand-red focus:outline-none" data-i18n-placeholder="checkout.login.email.placeholder" required />
                   </div>
                   <div>
                     <label for="checkoutLoginPassword" class="block text-sm font-semibold text-gray-700" data-i18n="checkout.login.password">Password</label>
-                    <input id="checkoutLoginPassword" name="loginPassword" type="password" class="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 focus:border-brand.red focus:outline-none" data-i18n-placeholder="checkout.login.password.placeholder" required />
+                    <input id="checkoutLoginPassword" name="loginPassword" type="password" class="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 focus:border-brand-red focus:outline-none" data-i18n-placeholder="checkout.login.password.placeholder" required />
                   </div>
                   <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                    <button type="submit" class="shine-btn rounded-full bg-brand.red px-6 py-3 text-sm font-semibold text-white shadow hover:bg-rose-600 transition" data-i18n="checkout.login.submit">Sign in</button>
-                    <a href="#" class="text-sm font-semibold text-brand.red hover:underline" data-i18n="checkout.login.forgot">Forgot password?</a>
+                    <button type="submit" class="shine-btn rounded-full bg-brand-red px-6 py-3 text-sm font-semibold text-white shadow hover:bg-rose-600 transition" data-i18n="checkout.login.submit">Sign in</button>
+                    <a href="#" class="text-sm font-semibold text-brand-red hover:underline" data-i18n="checkout.login.forgot">Forgot password?</a>
                   </div>
                 </form>
                 <p id="checkoutLoginError" class="hidden text-sm font-medium text-red-600" role="alert" data-i18n="checkout.login.error">We could not find an account with those details. Please register below.</p>
               </div>
               <div class="rounded-3xl border border-rose-100 bg-white p-6 md:p-8 flex flex-col gap-4">
                 <div>
-                  <p class="text-xs font-semibold uppercase tracking-[0.35em] text-brand.red" data-i18n="checkout.account.newTag">New to Osun?</p>
+                  <p class="text-xs font-semibold uppercase tracking-[0.35em] text-brand-red" data-i18n="checkout.account.newTag">New to Osun?</p>
                   <h4 class="mt-2 text-xl font-semibold text-gray-900" data-i18n="checkout.account.newTitle">First time shopping?</h4>
                   <p class="text-sm text-gray-600" data-i18n="checkout.account.newDesc">Create an Osun member account to save preferences and track parcels.</p>
                 </div>
                 <div class="space-y-3">
-                  <button type="button" class="shine-btn w-full rounded-full bg-brand.red px-6 py-3 text-sm font-semibold text-white shadow hover:bg-rose-600 transition" data-scroll-target="#checkout-registration" data-i18n="checkout.account.newCtaPrimary">Register now</button>
-                  <button type="button" class="shine-btn w-full rounded-full border border-brand.red bg-rose-50/80 px-6 py-3 text-sm font-semibold text-brand.red hover:bg-rose-100 hover:shadow transition" data-scroll-target="#checkout-registration" data-i18n="checkout.account.newCtaSecondary">Continue as guest</button>
+                  <button type="button" class="shine-btn w-full rounded-full bg-brand-red px-6 py-3 text-sm font-semibold text-white shadow hover:bg-rose-600 transition" data-scroll-target="#checkout-registration" data-i18n="checkout.account.newCtaPrimary">Register now</button>
+                  <button type="button" class="shine-btn w-full rounded-full border border-brand-red bg-rose-50/80 px-6 py-3 text-sm font-semibold text-brand-red hover:bg-rose-100 hover:shadow transition" data-scroll-target="#checkout-registration" data-i18n="checkout.account.newCtaSecondary">Continue as guest</button>
                 </div>
                 <p class="text-xs text-gray-500" data-i18n="checkout.account.newHint">Complete the registration form below to continue.</p>
               </div>
@@ -169,26 +154,26 @@
             <form id="checkout-account-form" class="mt-6 grid gap-4 md:grid-cols-2">
               <div class="md:col-span-2">
                 <label for="checkoutFullName" class="block text-sm font-semibold text-gray-700" data-i18n="checkout.account.fullName">Full name</label>
-                <input id="checkoutFullName" name="fullName" type="text" class="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 focus:border-brand.red focus:outline-none" data-i18n-placeholder="checkout.account.fullName.placeholder" required />
+                <input id="checkoutFullName" name="fullName" type="text" class="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 focus:border-brand-red focus:outline-none" data-i18n-placeholder="checkout.account.fullName.placeholder" required />
               </div>
               <div>
                 <label for="checkoutAccountPhone" class="block text-sm font-semibold text-gray-700" data-i18n="checkout.account.phone">Contact number</label>
-                <input id="checkoutAccountPhone" name="phone" type="tel" class="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 focus:border-brand.red focus:outline-none" data-i18n-placeholder="checkout.account.phone.placeholder" required />
+                <input id="checkoutAccountPhone" name="phone" type="tel" class="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 focus:border-brand-red focus:outline-none" data-i18n-placeholder="checkout.account.phone.placeholder" required />
               </div>
               <div>
                 <label for="checkoutEmail" class="block text-sm font-semibold text-gray-700" data-i18n="checkout.account.email">Email</label>
-                <input id="checkoutEmail" name="email" type="email" class="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 focus:border-brand.red focus:outline-none" data-i18n-placeholder="checkout.account.email.placeholder" required />
+                <input id="checkoutEmail" name="email" type="email" class="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 focus:border-brand-red focus:outline-none" data-i18n-placeholder="checkout.account.email.placeholder" required />
               </div>
               <div>
                 <label for="checkoutPassword" class="block text-sm font-semibold text-gray-700" data-i18n="checkout.account.password">Password</label>
-                <input id="checkoutPassword" name="password" type="password" class="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 focus:border-brand.red focus:outline-none" data-i18n-placeholder="checkout.account.password.placeholder" required />
+                <input id="checkoutPassword" name="password" type="password" class="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 focus:border-brand-red focus:outline-none" data-i18n-placeholder="checkout.account.password.placeholder" required />
               </div>
               <div class="md:col-span-2">
                 <label for="checkoutNotes" class="block text-sm font-semibold text-gray-700" data-i18n="checkout.account.notes">Order notes (optional)</label>
-                <textarea id="checkoutNotes" name="notes" rows="3" class="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 focus:border-brand.red focus:outline-none" data-i18n-placeholder="checkout.account.notes.placeholder"></textarea>
+                <textarea id="checkoutNotes" name="notes" rows="3" class="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 focus:border-brand-red focus:outline-none" data-i18n-placeholder="checkout.account.notes.placeholder"></textarea>
               </div>
               <div class="md:col-span-2 flex justify-end gap-3">
-                <button type="submit" class="shine-btn rounded-full bg-brand.red px-6 py-3 text-sm font-semibold text-white shadow hover:bg-rose-600 transition" data-i18n="checkout.common.next">Save &amp; continue</button>
+                <button type="submit" class="shine-btn rounded-full bg-brand-red px-6 py-3 text-sm font-semibold text-white shadow hover:bg-rose-600 transition" data-i18n="checkout.common.next">Save &amp; continue</button>
               </div>
             </form>
           </section>
@@ -199,31 +184,31 @@
             <form id="checkout-shipping-form" class="mt-6 grid gap-4 md:grid-cols-2">
               <div class="md:col-span-2">
                 <label for="checkoutAddress" class="block text-sm font-semibold text-gray-700" data-i18n="checkout.shipping.address">Street address</label>
-                <textarea id="checkoutAddress" name="address" rows="2" class="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 focus:border-brand.red focus:outline-none" data-i18n-placeholder="checkout.shipping.address.placeholder" required></textarea>
+                <textarea id="checkoutAddress" name="address" rows="2" class="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 focus:border-brand-red focus:outline-none" data-i18n-placeholder="checkout.shipping.address.placeholder" required></textarea>
               </div>
               <div>
                 <label for="checkoutCity" class="block text-sm font-semibold text-gray-700" data-i18n="checkout.shipping.city">City</label>
-                <input id="checkoutCity" name="city" type="text" class="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 focus:border-brand.red focus:outline-none" data-i18n-placeholder="checkout.shipping.city.placeholder" required />
+                <input id="checkoutCity" name="city" type="text" class="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 focus:border-brand-red focus:outline-none" data-i18n-placeholder="checkout.shipping.city.placeholder" required />
               </div>
               <div>
                 <label for="checkoutState" class="block text-sm font-semibold text-gray-700" data-i18n="checkout.shipping.state">State</label>
-                <input id="checkoutState" name="state" type="text" class="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 focus:border-brand.red focus:outline-none" data-i18n-placeholder="checkout.shipping.state.placeholder" required />
+                <input id="checkoutState" name="state" type="text" class="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 focus:border-brand-red focus:outline-none" data-i18n-placeholder="checkout.shipping.state.placeholder" required />
               </div>
               <div>
                 <label for="checkoutPostcode" class="block text-sm font-semibold text-gray-700" data-i18n="checkout.shipping.postcode">Postcode</label>
-                <input id="checkoutPostcode" name="postcode" type="text" class="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 focus:border-brand.red focus:outline-none" data-i18n-placeholder="checkout.shipping.postcode.placeholder" required />
+                <input id="checkoutPostcode" name="postcode" type="text" class="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 focus:border-brand-red focus:outline-none" data-i18n-placeholder="checkout.shipping.postcode.placeholder" required />
               </div>
               <div>
                 <label for="checkoutDelivery" class="block text-sm font-semibold text-gray-700" data-i18n="checkout.shipping.speed">Delivery speed</label>
-                <select id="checkoutDelivery" name="delivery" class="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 focus:border-brand.red focus:outline-none">
+                <select id="checkoutDelivery" name="delivery" class="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 focus:border-brand-red focus:outline-none">
                   <option value="standard" data-i18n="checkout.shipping.speed.standard">Standard (3-5 days)</option>
                   <option value="express" data-i18n="checkout.shipping.speed.express">Express (1-2 days)</option>
                   <option value="pickup" data-i18n="checkout.shipping.speed.pickup">In-store pickup</option>
                 </select>
               </div>
               <div class="md:col-span-2 flex justify-between items-center">
-                <button type="button" class="text-sm font-semibold text-gray-500 hover:text-brand.red" data-checkout-back="account" data-i18n="checkout.common.back">Back</button>
-                <button type="submit" class="shine-btn rounded-full bg-brand.red px-6 py-3 text-sm font-semibold text-white shadow hover:bg-rose-600 transition" data-i18n="checkout.shipping.next">Save shipping</button>
+                <button type="button" class="text-sm font-semibold text-gray-500 hover:text-brand-red" data-checkout-back="account" data-i18n="checkout.common.back">Back</button>
+                <button type="submit" class="shine-btn rounded-full bg-brand-red px-6 py-3 text-sm font-semibold text-white shadow hover:bg-rose-600 transition" data-i18n="checkout.shipping.next">Save shipping</button>
               </div>
             </form>
           </section>
@@ -233,60 +218,64 @@
             <p class="mt-2 text-sm text-gray-600" data-i18n="checkout.payment.desc">We support major credit cards, e-wallets, and bank transfers.</p>
             <form id="checkout-payment-form" class="mt-6 space-y-6">
               <div class="grid gap-4 md:grid-cols-3" id="checkoutPaymentOptions">
-                <label class="rounded-2xl border border-gray-200 p-4 transition hover:border-brand.red">
+                <label class="rounded-2xl border border-gray-200 p-4 transition hover:border-brand-red">
                   <input type="radio" name="paymentMethod" value="visa" class="sr-only" checked />
                   <div class="flex flex-col gap-3">
                     <span class="text-sm font-semibold text-gray-900" data-i18n="checkout.payment.method.visa">VISA / MasterCard</span>
                     <div class="flex items-center gap-2 text-xs text-gray-500">
-                      <span class="inline-flex items-center justify-center rounded-full bg-rose-100 px-2 py-1 font-semibold text-brand.red" data-i18n="checkout.payment.method.visa.badge">Card</span>
+                      <span class="inline-flex items-center justify-center rounded-full bg-rose-100 px-2 py-1 font-semibold text-brand-red" data-i18n="checkout.payment.method.visa.badge">Card</span>
                       <span data-i18n="checkout.payment.method.visa.desc">Visa · MasterCard · Amex</span>
                     </div>
                   </div>
                 </label>
-                <label class="rounded-2xl border border-gray-200 p-4 transition hover:border-brand.red">
+                <label class="rounded-2xl border border-gray-200 p-4 transition hover:border-brand-red">
                   <input type="radio" name="paymentMethod" value="fpx" class="sr-only" />
                   <div class="flex flex-col gap-3">
                     <span class="text-sm font-semibold text-gray-900" data-i18n="checkout.payment.method.fpx">FPX / Bank Transfer</span>
                     <div class="flex items-center gap-2 text-xs text-gray-500">
-                      <span class="inline-flex items-center justify-center rounded-full bg-rose-100 px-2 py-1 font-semibold text-brand.red" data-i18n="checkout.payment.method.fpx.badge">Bank</span>
+                      <span class="inline-flex items-center justify-center rounded-full bg-rose-100 px-2 py-1 font-semibold text-brand-red" data-i18n="checkout.payment.method.fpx.badge">Bank</span>
                       <span data-i18n="checkout.payment.method.fpx.desc">Maybank · CIMB · RHB</span>
                     </div>
                   </div>
                 </label>
-                <label class="rounded-2xl border border-gray-200 p-4 transition hover:border-brand.red">
+                <label class="rounded-2xl border border-gray-200 p-4 transition hover:border-brand-red">
                   <input type="radio" name="paymentMethod" value="ewallet" class="sr-only" />
                   <div class="flex flex-col gap-3">
                     <span class="text-sm font-semibold text-gray-900" data-i18n="checkout.payment.method.ewallet">E-wallet</span>
                     <div class="flex items-center gap-2 text-xs text-gray-500">
-                      <span class="inline-flex items-center justify-center rounded-full bg-rose-100 px-2 py-1 font-semibold text-brand.red" data-i18n="checkout.payment.method.ewallet.badge">Wallet</span>
+                      <span class="inline-flex items-center justify-center rounded-full bg-rose-100 px-2 py-1 font-semibold text-brand-red" data-i18n="checkout.payment.method.ewallet.badge">Wallet</span>
                       <span data-i18n="checkout.payment.method.ewallet.desc">GrabPay · Touch 'n Go · Boost</span>
                     </div>
                   </div>
                 </label>
               </div>
 
+              <p id="checkoutPaymentHint" class="text-xs text-gray-500">
+                You will be redirected to Visa to complete payment securely.
+              </p>
+
               <div id="checkoutCardFields" class="grid gap-4 md:grid-cols-2">
                 <div class="md:col-span-2">
                   <label for="checkoutCardName" class="block text-sm font-semibold text-gray-700" data-i18n="checkout.payment.cardName">Name on card</label>
-                  <input id="checkoutCardName" name="cardName" type="text" class="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 focus:border-brand.red focus:outline-none" data-i18n-placeholder="checkout.payment.cardName.placeholder" required />
+                  <input id="checkoutCardName" name="cardName" type="text" class="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 focus:border-brand-red focus:outline-none" data-i18n-placeholder="checkout.payment.cardName.placeholder" required />
                 </div>
                 <div class="md:col-span-2">
                   <label for="checkoutCardNumber" class="block text-sm font-semibold text-gray-700" data-i18n="checkout.payment.cardNumber">Card number</label>
-                  <input id="checkoutCardNumber" name="cardNumber" inputmode="numeric" maxlength="19" class="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 focus:border-brand.red focus:outline-none" data-i18n-placeholder="checkout.payment.cardNumber.placeholder" required />
+                  <input id="checkoutCardNumber" name="cardNumber" inputmode="numeric" maxlength="19" class="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 focus:border-brand-red focus:outline-none" data-i18n-placeholder="checkout.payment.cardNumber.placeholder" required />
                 </div>
                 <div>
                   <label for="checkoutCardExpiry" class="block text-sm font-semibold text-gray-700" data-i18n="checkout.payment.cardExpiry">Expiry</label>
-                  <input id="checkoutCardExpiry" name="cardExpiry" placeholder="MM/YY" class="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 focus:border-brand.red focus:outline-none" required />
+                  <input id="checkoutCardExpiry" name="cardExpiry" placeholder="MM/YY" class="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 focus:border-brand-red focus:outline-none" required />
                 </div>
                 <div>
                   <label for="checkoutCardCvv" class="block text-sm font-semibold text-gray-700" data-i18n="checkout.payment.cardCvv">CVV</label>
-                  <input id="checkoutCardCvv" name="cardCvv" type="password" maxlength="4" class="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 focus:border-brand.red focus:outline-none" data-i18n-placeholder="checkout.payment.cardCvv.placeholder" required />
+                  <input id="checkoutCardCvv" name="cardCvv" type="password" maxlength="4" class="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 focus:border-brand-red focus:outline-none" data-i18n-placeholder="checkout.payment.cardCvv.placeholder" required />
                 </div>
               </div>
 
               <div class="flex justify-between items-center">
-                <button type="button" class="text-sm font-semibold text-gray-500 hover:text-brand.red" data-checkout-back="shipping" data-i18n="checkout.common.back">Back</button>
-                <button type="submit" class="shine-btn rounded-full bg-brand.red px-6 py-3 text-sm font-semibold text-white shadow hover:bg-rose-600 transition" data-i18n="checkout.payment.next">Review order</button>
+                <button type="button" class="text-sm font-semibold text-gray-500 hover:text-brand-red" data-checkout-back="shipping" data-i18n="checkout.common.back">Back</button>
+                <button type="submit" class="shine-btn rounded-full bg-brand-red px-6 py-3 text-sm font-semibold text-white shadow hover:bg-rose-600 transition" data-i18n="checkout.payment.next">Review order</button>
               </div>
             </form>
           </section>
@@ -296,8 +285,8 @@
             <p class="mt-2 text-sm text-gray-600" data-i18n="checkout.review.desc">Double-check your information below. Submit to generate your tracking status instantly.</p>
             <div id="checkout-summary" class="mt-6 space-y-4 text-sm text-gray-700"></div>
             <div class="mt-6 flex flex-wrap items-center justify-between gap-3">
-              <button type="button" class="text-sm font-semibold text-gray-500 hover:text-brand.red" data-checkout-back="payment" data-i18n="checkout.common.back">Back</button>
-              <button type="button" id="checkoutPlaceOrder" class="shine-btn rounded-full bg-brand.red px-6 py-3 text-sm font-semibold text-white shadow hover:bg-rose-600 transition" data-i18n="checkout.review.place">Place order &amp; start tracking</button>
+              <button type="button" class="text-sm font-semibold text-gray-500 hover:text-brand-red" data-checkout-back="payment" data-i18n="checkout.common.back">Back</button>
+              <button type="button" id="checkoutPlaceOrder" class="shine-btn rounded-full bg-brand-red px-6 py-3 text-sm font-semibold text-white shadow hover:bg-rose-600 transition" data-i18n="checkout.review.place">Place order &amp; start tracking</button>
             </div>
             <p id="checkoutReviewError" class="mt-4 hidden text-sm font-semibold text-red-600"></p>
           </section>
@@ -348,10 +337,11 @@
       </div>
       <div>
         <p class="font-semibold text-white" data-i18n="foot.follow">Follow</p>
-        <div class="mt-3 flex items-center gap-3">
-          <a href="#" aria-label="Instagram" class="hover:text-white">IG</a>
-          <a href="#" aria-label="Facebook" class="hover:text-white">FB</a>
-          <a href="#" aria-label="TikTok" class="hover:text-white">TT</a>
+        <div class="mt-3 flex items-center gap-3 text-sm">
+          <a href="#" data-social-link="instagram" aria-label="Instagram" class="hover:text-white">IG</a>
+          <a href="#" data-social-link="facebook" aria-label="Facebook" class="hover:text-white">FB</a>
+          <a href="#" data-social-link="whatsapp" aria-label="WhatsApp" class="hover:text-white">WA</a>
+          <a href="#" data-social-link="tiktok" aria-label="TikTok" class="hover:text-white">TT</a>
         </div>
         <a href="admin.html" class="mt-4 inline-block text-sm text-yellow-400 hover:text-white" data-i18n="foot.admin">Admin</a>
       </div>
@@ -371,7 +361,7 @@
           <span class="text-sm text-gray-600" data-i18n="cart.subtotal">Subtotal</span>
           <span id="cart-subtotal" class="text-lg font-semibold">MYR 0.00</span>
         </div>
-        <a href="checkout.html" class="w-full shine-btn inline-flex justify-center rounded-full bg-brand.red text-white py-3 font-semibold hover:bg-rose-600 transition" data-i18n="cart.checkout" data-i18n-aria-label="cart.checkout" aria-label="Checkout">Secure checkout</a>
+        <a href="checkout.html" class="w-full shine-btn inline-flex justify-center rounded-full bg-brand-red text-white py-3 font-semibold hover:bg-rose-600 transition" data-i18n="cart.checkout" data-i18n-aria-label="cart.checkout" aria-label="Checkout">Secure checkout</a>
         <p class="text-xs text-gray-500 mt-2" data-i18n="cart.note">This storefront is for demos only. Payments are simulated.</p>
       </div>
     </aside>
@@ -388,7 +378,5 @@
       }
     });
   </script>
-  <script src="js/content.js"></script>
-  <script src="js/site.js"></script>
 </body>
 </html>

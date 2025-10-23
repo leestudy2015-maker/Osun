@@ -9,8 +9,8 @@
   <meta property="og:title" content="Osun Beauty | Categories" />
   <meta property="og:description" content="Explore dresses, tops, beauty rituals and lifestyle services." />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="assets/images/hero.jpg" />
-  <meta property="og:image" content="hero.jpg" />
+  <meta property="og:image" content="assets/images/hero.svg" />
+  <meta property="og:image" content="hero.svg" />
   <meta property="og:url" content="https://osun.example.com/categories" />
 
   <script src="https://cdn.tailwindcss.com"></script>
@@ -30,31 +30,20 @@
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <link rel="stylesheet" href="assets/css/site.css" />
-  <style>
-    html { scroll-behavior: smooth; }
-    .shine-btn{ position:relative; overflow:hidden; }
-    .shine-btn::after{
-      content:''; position:absolute; top:0; left:-75%; width:50%; height:100%;
-      background:linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.5) 50%, rgba(255,255,255,0) 100%);
-      transform:skewX(-20deg); transition:.9s;
-    }
-    .shine-btn:hover::after{ left:125%; }
-    .mask { background: rgba(0,0,0,.35); backdrop-filter: saturate(120%) blur(1px); }
-  </style>
 </head>
 <body class="bg-white text-gray-800">
   <header class="sticky top-0 z-40 bg-white/85 backdrop-blur border-b">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between" data-aos="fade-down">
       <a href="index.html" class="flex items-center gap-2" aria-label="Osun home">
-        <span class="h-8 w-8 rounded-full bg-brand.red inline-block shadow-elev"></span>
-        <span class="text-xl sm:text-2xl font-extrabold tracking-tight text-brand.red">Osun Beauty &amp; Boutique</span>
+        <span class="h-8 w-8 rounded-full bg-brand-red inline-block shadow-elev"></span>
+        <span class="text-xl sm:text-2xl font-extrabold tracking-tight text-brand-red">Osun Beauty &amp; Boutique</span>
       </a>
       <nav class="hidden md:flex items-center gap-6" aria-label="Primary">
-        <a href="index.html#shop" class="hover:text-brand.yellow transition" data-i18n="nav.shop">Shop</a>
-        <a href="categories.html" class="text-brand.yellow font-semibold" data-i18n="nav.categories">Categories</a>
-        <a href="index.html#beauty" class="hover:text-brand.yellow transition" data-i18n="nav.beauty">Beauty</a>
-        <a href="about.html" class="hover:text-brand.yellow transition" data-i18n="nav.about">About</a>
-        <a href="admin.html" class="hover:text-brand.yellow transition" data-i18n="nav.admin">Admin</a>
+        <a href="index.html#shop" class="hover:text-brand-yellow transition" data-i18n="nav.shop">Shop</a>
+        <a href="categories.html" class="text-brand-yellow font-semibold" data-i18n="nav.categories">Categories</a>
+        <a href="index.html#beauty" class="hover:text-brand-yellow transition" data-i18n="nav.beauty">Beauty</a>
+        <a href="about.html" class="hover:text-brand-yellow transition" data-i18n="nav.about">About</a>
+        <a href="admin.html" class="hover:text-brand-yellow transition" data-i18n="nav.admin">Admin</a>
       </nav>
       <div class="flex items-center gap-2">
         <button id="lang-zh" class="px-3 py-1 rounded-full border hover:shadow-elev transition text-sm">中文</button>
@@ -65,7 +54,7 @@
             <circle cx="20" cy="21" r="1"></circle>
             <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
           </svg>
-          <span id="cart-count" class="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 text-xs rounded-full bg-brand.red text-white grid place-items-center">0</span>
+          <span id="cart-count" class="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 text-xs rounded-full bg-brand-red text-white grid place-items-center">0</span>
         </button>
         <button id="menu-toggle" class="md:hidden p-2 rounded-lg border hover:shadow-elev" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
           <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
@@ -86,11 +75,11 @@
   <main class="pt-28 pb-20">
     <section class="bg-gradient-to-b from-pink-50 via-white to-white" aria-labelledby="catpage-title">
       <div class="max-w-5xl mx-auto px-6 py-16 text-center">
-        <p class="text-sm uppercase tracking-[0.4em] text-brand.red" data-i18n="catpage.hero.tag" data-content-key="categories.hero.tag">Curated Categories</p>
+        <p class="text-sm uppercase tracking-[0.4em] text-brand-red" data-i18n="catpage.hero.tag" data-content-key="categories.hero.tag">Curated Categories</p>
         <h1 id="catpage-title" class="mt-4 text-4xl font-bold text-gray-900" data-i18n="catpage.hero.title" data-content-key="categories.hero.title">Dive into our boutique wardrobe library</h1>
         <p class="mt-4 text-base md:text-lg text-gray-600" data-i18n="catpage.hero.subtitle" data-content-key="categories.hero.subtitle">Swipe through seasonal edits and uncover the looks that keep your style effortless.</p>
         <div class="mt-8 flex flex-wrap justify-center gap-3">
-          <a href="index.html#shop" class="shine-btn inline-flex items-center rounded-full bg-brand.red px-6 py-3 text-sm font-semibold text-white hover:bg-rose-600 transition" data-i18n="catpage.hero.cta" data-content-key="categories.hero.ctaText" data-content-link="categories.hero.ctaLink">Back to shop</a>
+          <a href="index.html#shop" class="shine-btn inline-flex items-center rounded-full bg-brand-red px-6 py-3 text-sm font-semibold text-white hover:bg-rose-600 transition" data-i18n="catpage.hero.cta" data-content-key="categories.hero.ctaText" data-content-link="categories.hero.ctaLink">Back to shop</a>
         </div>
       </div>
     </section>
@@ -99,7 +88,7 @@
       <section data-category-section="wardrobe" class="space-y-6" data-aos="fade-up">
         <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div class="max-w-2xl">
-            <p class="text-sm uppercase tracking-[0.35em] text-brand.red" data-i18n="catpage.wardrobe.tag" data-category-field="tag">Wardrobe Foundations</p>
+            <p class="text-sm uppercase tracking-[0.35em] text-brand-red" data-i18n="catpage.wardrobe.tag" data-category-field="tag">Wardrobe Foundations</p>
             <h2 class="mt-2 text-3xl font-bold text-gray-900" data-i18n="catpage.wardrobe.title" data-category-field="title">Everyday layers for your signature style.</h2>
             <p class="mt-3 text-gray-600" data-i18n="catpage.wardrobe.desc" data-category-field="description">Mix-and-match staples that balance polish and comfort from office hours to weekend brunch.</p>
           </div>
@@ -113,7 +102,7 @@
       <section data-category-section="ritual" class="space-y-6" data-aos="fade-up">
         <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div class="max-w-2xl">
-            <p class="text-sm uppercase tracking-[0.35em] text-brand.red" data-i18n="catpage.ritual.tag" data-category-field="tag">Lifestyle Rituals</p>
+            <p class="text-sm uppercase tracking-[0.35em] text-brand-red" data-i18n="catpage.ritual.tag" data-category-field="tag">Lifestyle Rituals</p>
             <h2 class="mt-2 text-3xl font-bold text-gray-900" data-i18n="catpage.ritual.title" data-category-field="title">Comfort-led looks for slow mornings and mindful evenings.</h2>
             <p class="mt-3 text-gray-600" data-i18n="catpage.ritual.desc" data-category-field="description">Loungewear, weekend staples, and mindful textiles for every daily ritual.</p>
           </div>
@@ -127,7 +116,7 @@
       <section data-category-section="designer" class="space-y-6" data-aos="fade-up">
         <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div class="max-w-2xl">
-            <p class="text-sm uppercase tracking-[0.35em] text-brand.red" data-i18n="catpage.designer.tag" data-category-field="tag">Designer Exclusives</p>
+            <p class="text-sm uppercase tracking-[0.35em] text-brand-red" data-i18n="catpage.designer.tag" data-category-field="tag">Designer Exclusives</p>
             <h2 class="mt-2 text-3xl font-bold text-gray-900" data-i18n="catpage.designer.title" data-category-field="title">Statement eveningwear crafted for unforgettable nights.</h2>
             <p class="mt-3 text-gray-600" data-i18n="catpage.designer.desc" data-category-field="description">Limited couture edits and bespoke gowns tailored by Southeast Asian designers.</p>
           </div>
@@ -164,10 +153,11 @@
       </div>
       <div>
         <p class="font-semibold text-white" data-i18n="foot.follow">Follow</p>
-        <div class="mt-3 flex items-center gap-3">
-          <a href="#" aria-label="Instagram" class="hover:text-white">IG</a>
-          <a href="#" aria-label="Facebook" class="hover:text-white">FB</a>
-          <a href="#" aria-label="TikTok" class="hover:text-white">TT</a>
+        <div class="mt-3 flex items-center gap-3 text-sm">
+          <a href="#" data-social-link="instagram" aria-label="Instagram" class="hover:text-white">IG</a>
+          <a href="#" data-social-link="facebook" aria-label="Facebook" class="hover:text-white">FB</a>
+          <a href="#" data-social-link="whatsapp" aria-label="WhatsApp" class="hover:text-white">WA</a>
+          <a href="#" data-social-link="tiktok" aria-label="TikTok" class="hover:text-white">TT</a>
         </div>
         <a href="admin.html" class="mt-4 inline-block text-sm text-yellow-400 hover:text-white" data-i18n="foot.admin">Admin</a>
       </div>
@@ -187,7 +177,7 @@
           <span class="text-sm text-gray-600" data-i18n="cart.subtotal">Subtotal</span>
           <span id="cart-subtotal" class="text-lg font-semibold">MYR 0.00</span>
         </div>
-        <a href="checkout.html" class="w-full shine-btn inline-flex justify-center rounded-full bg-brand.red text-white py-3 font-semibold hover:bg-rose-600 transition" aria-label="Checkout" data-i18n="cart.checkout" data-i18n-aria-label="cart.checkout">Secure checkout</a>
+        <a href="checkout.html" class="w-full shine-btn inline-flex justify-center rounded-full bg-brand-red text-white py-3 font-semibold hover:bg-rose-600 transition" aria-label="Checkout" data-i18n="cart.checkout" data-i18n-aria-label="cart.checkout">Secure checkout</a>
         <p class="text-xs text-gray-500 mt-2" data-i18n="cart.note">This storefront is for demos only. Payments are simulated.</p>
       </div>
     </aside>
@@ -204,7 +194,5 @@
       }
     });
   </script>
-  <script src="js/content.js"></script>
-  <script src="js/site.js"></script>
 </body>
 </html>
